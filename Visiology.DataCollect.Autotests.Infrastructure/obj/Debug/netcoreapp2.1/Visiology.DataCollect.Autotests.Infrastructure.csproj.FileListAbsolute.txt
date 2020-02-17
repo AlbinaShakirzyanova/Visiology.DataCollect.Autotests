@@ -1,0 +1,8 @@
+E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.Infrastructure\bin\Debug\netcoreapp2.1\Visiology.DataCollect.Autotests.Infrastructure.deps.json
+E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.Infrastructure\bin\Debug\netcoreapp2.1\Visiology.DataCollect.Autotests.Infrastructure.dll
+E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.Infrastructure\bin\Debug\netcoreapp2.1\Visiology.DataCollect.Autotests.Infrastructure.pdb
+E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.Infrastructure\obj\Debug\netcoreapp2.1\Visiology.DataCollect.Autotests.Infrastructure.csproj.CoreCompileInputs.cache
+E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.Infrastructure\obj\Debug\netcoreapp2.1\Visiology.DataCollect.Autotests.Infrastructure.AssemblyInfoInputs.cache
+E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.Infrastructure\obj\Debug\netcoreapp2.1\Visiology.DataCollect.Autotests.Infrastructure.AssemblyInfo.cs
+E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.Infrastructure\obj\Debug\netcoreapp2.1\Visiology.DataCollect.Autotests.Infrastructure.dll
+E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.Infrastructure\obj\Debug\netcoreapp2.1\Visiology.DataCollect.Autotests.Infrastructure.pdb

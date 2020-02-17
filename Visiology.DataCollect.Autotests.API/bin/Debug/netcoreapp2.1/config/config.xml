@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+
+    <!-- ОБЩИЕ НАСТРОЙКИ СИСТЕМЫ -->
+
+    <!-- Расположение директории -->
+    <CurrentDirectory>../../../Visiology.DataCollect.Web</CurrentDirectory>
+    <!-- Версия в заголовке X-Api-Version -->
+    <XApiVersionHeader>1.0</XApiVersionHeader>
+
+    <!-- Данные пользователя для тестирования с ролью "Администратор" -->
+    <AdminUserLogin>UserAdmin</AdminUserLogin>
+    <AdminUserPassword>123456</AdminUserPassword>
+    <!-- /Данные пользователя для тестирования с ролью "Администратор" -->
+
+    <!-- Данные пользователя для тестирования с ролью. Роль "Тестовая" -->
+    <UserWithRoleLogin>UserWithRole</UserWithRoleLogin>
+    <UserWithRolePassword>123456</UserWithRolePassword>
+    <!-- /Данные пользователя для тестирования с ролью -->
+
+    <!-- Данные 2ого пользователя для тестирования с ролью. Роль "Тестовая" -->
+    <User2WithRoleLogin>User2WithRole</User2WithRoleLogin>
+    <User2WithRolePassword>123456</User2WithRolePassword>
+    <!-- /Данные пользователя для тестирования с ролью -->
+
+    <!-- Данные пользователя для тестирования с фейковой ролью (роль, на которую не дано ни одно разрешение). Роль "Фейковая"-->
+    <UserWithFakeRoleLogin>UserWithFakeRole</UserWithFakeRoleLogin>
+    <UserWithFakeRolePassword>123456</UserWithFakeRolePassword>
+    <!-- /Данные пользователя для тестирования с фейковой ролью -->
+
+    <!-- Данные пользователя для тестирования неуникальных элементов. Роль "Тестирование неуникальных наименований"-->
+    <ForNotUniqueElementsRoleLogin>UserForNotUniqueElements</ForNotUniqueElementsRoleLogin>
+    <ForNotUniqueElementsRolePassword>123456</ForNotUniqueElementsRolePassword>
+    <!-- /Данные пользователя для тестирования с фейковой ролью -->
+
+    <!-- Количество получаемых сущностей по умолчанию -->
+    <DefaultEntitiesCount>1000</DefaultEntitiesCount>
+
+    <!-- /ОБЩИЕ НАСТРОЙКИ СИСТЕМЫ -->
+
+    <!-- НАСТРОЙКИ ТЕСТИРОВАНИЯ ИЗМЕРЕНИЙ -->
+    <!-- Измерение для тестирования получения метаописаний для пользователя с ролью "Администратор" -->
+    <AdminUserDimensionId>6</AdminUserDimensionId>
+    <!-- Измерение для тестирования получения метаописаний для пользователя с ролью  -->
+    <UserWithRoleDimensionId>6</UserWithRoleDimensionId>
+    <!-- Количество измерений, доступных пользователю без ролей -->
+    <NonAuthUserDimensionsCount>0</NonAuthUserDimensionsCount>
+    <!-- /НАСТРОЙКИ ТЕСТИРОВАНИЯ ИЗМЕРЕНИЙ -->
+
+    <!-- НАСТРОЙКИ ТЕСТИРОВАНИЯ ГРУПП ПОКАЗАТЕЛЕЙ -->
+    <!-- /Url методов -->
+    <ApiUrl>http://localhost:6634/datacollection/api/</ApiUrl>
+    <!-- <ApiUrlAuthenticatePath>account/authenticate</> -->
+    <ApiUrlAuthenticatePath>http://192.168.23.126/idsrv/connect/token</ApiUrlAuthenticatePath>
+
+    <!-- Dimensions -->
+    <!-- Get -->
+    <ApiUrlGetDimensionsPath>dimensions</ApiUrlGetDimensionsPath>
+    <ApiUrlGetDimensionAttributesPath>dimensions/{0}/attributes</ApiUrlGetDimensionAttributesPath>
+    <ApiUrlGetDimensionFoldersPath>dimensions/{0}/folders</ApiUrlGetDimensionFoldersPath>
+    <ApiUrlGetDimensionLevelsPath>dimensions/{0}/levels</ApiUrlGetDimensionLevelsPath>
+    <ApiUrlGetDimensionFolderChildrenPath>dimensions/{0}/folders/{1}/children</ApiUrlGetDimensionFolderChildrenPath>
+    <ApiUrlDimensionElementsPath>dimensions/{0}/elements</ApiUrlDimensionElementsPath>
+    <ApiUrlDimensionElementsSearchPath>dimensions/{0}/elements/search</ApiUrlDimensionElementsSearchPath>
+    <ApiUrlGetDimensionLevelFoldersPath>dimensions/{0}/levels/{1}/folders</ApiUrlGetDimensionLevelFoldersPath>
+    <!-- /Get -->
+    <!-- Post -->
+    <!-- /Post -->
+    <!-- /Dimensions -->
+
+    <!-- Measure Groups -->
+    <!-- Get -->
+    <ApiUrlGetMeasureGroupsPath>measuregroups</ApiUrlGetMeasureGroupsPath>
+    <ApiUrlGetMeasureGroupPath>measuregroups/{0}</ApiUrlGetMeasureGroupPath>
+    <ApiUrlGetMeasureGroupFormsPath>measuregroups/{0}/forms</ApiUrlGetMeasureGroupFormsPath>
+    <ApiUrlMeasureGroupElementsPath>measuregroups/{0}/elements</ApiUrlMeasureGroupElementsPath>
+    <ApiUrlMeasureGroupElementsSearchPath>measuregroups/{0}/elements/search</ApiUrlMeasureGroupElementsSearchPath>
+    <!-- /Get -->
+    <!-- Post -->
+    <!-- /Post -->
+    <!-- /Measure Groups -->
+    <!-- /Url методов -->
+
+  </appSettings>
+</configuration>
