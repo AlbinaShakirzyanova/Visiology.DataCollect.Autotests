@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements;
 
-namespace Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements
+namespace Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements
 {
     /// <summary>
     /// Элемент группы показателей
@@ -23,6 +24,12 @@ namespace Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements
         /// Координата по дате
         /// </summary>
         public CalendarDto Calendar { get; set; }
+
+        /// <summary>
+        /// Значения атрибутов элемента группы показателей
+        /// </summary>
+        public List<MeasureGroupElementAttributeDto> Attributes { get; set; }
+            = new List<MeasureGroupElementAttributeDto>();
 
         public override bool Equals(object obj)
         {

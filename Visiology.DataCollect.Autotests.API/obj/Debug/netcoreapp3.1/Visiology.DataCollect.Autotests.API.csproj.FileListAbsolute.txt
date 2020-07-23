@@ -116,3 +116,4 @@ E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\obj\
 E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\bin\Debug\netcoreapp3.1\testhost.exe
 E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.Utilities.dll
 E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\bin\Debug\netcoreapp3.1\NuGet.Frameworks.dll
+E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\obj\Debug\netcoreapp3.1\Visiology.DataCollect.Autotests.API.csprojAssemblyReference.cache

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Interfaces;
 
 namespace Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements

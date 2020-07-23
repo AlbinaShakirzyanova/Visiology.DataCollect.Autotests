@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Visiology.DataCollect.Autotests.API.Infrastructure.Entities.Results;
-using Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements;
+using Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements;
 
 namespace Visiology.DataCollect.Integration.Tests.Infrastructure.Impl
 {

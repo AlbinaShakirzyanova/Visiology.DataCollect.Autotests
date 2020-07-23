@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements;
 using Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;

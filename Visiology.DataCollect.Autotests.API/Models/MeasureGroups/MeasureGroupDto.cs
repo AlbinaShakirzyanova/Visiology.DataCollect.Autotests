@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Attributes;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Interfaces;
 
 namespace Visiology.DataCollect.Integration.Tests.Models.MeasureGroups
@@ -32,5 +33,7 @@ namespace Visiology.DataCollect.Integration.Tests.Models.MeasureGroups
         /// Календарь группы показателей
         /// </summary>
         public ApiMeasureGroupComponent Calendar { get; set; }
+
+        public IList<MeasureGroupAttributeDto> Attributes { get; set; }
     }
 }
