@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
@@ -7,7 +8,7 @@ using Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements;
 using Xunit;
 
 
-namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v2
+namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
 {
     [XApiVersion("2.0")]
     public class ElementsTests : BaseTests<ElementsListDto, ElementDto>

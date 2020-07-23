@@ -6,7 +6,7 @@ using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Interfaces;
 
-namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get
+namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get
 {
     /// <summary>
     /// Абстрактная сущность базового интеграционного класса на тестируемый метод Get

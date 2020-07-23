@@ -6,7 +6,7 @@ using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Interfaces;
 using Xunit;
 
-namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get
+namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get
 {
     /// <summary>
     /// Абстрактный класс базовых тестов для Get-методов

@@ -6,7 +6,7 @@ using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Forms;
 using Xunit;
 
-namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v2
+namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
 {
     /// <summary>
     /// Класс тестирования метода получения форм группы показателей
