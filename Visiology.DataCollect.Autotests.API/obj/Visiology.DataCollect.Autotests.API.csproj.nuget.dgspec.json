@@ -43,31 +43,29 @@
           "dependencies": {
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
-              "version": "[3.1.1, )"
-            },
-            "Microsoft.Extensions.Configuration.Json": {
-              "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.6, )"
             },
             "Microsoft.Extensions.Configuration.Xml": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.6, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[15.9.0, )"
+              "version": "[16.6.1, )"
             },
             "RestSharp": {
               "target": "Package",
-              "version": "[106.10.1, )"
+              "version": "[106.11.4, )"
             },
             "xunit": {
               "target": "Package",
-              "version": "[2.4.0, )"
+              "version": "[2.4.1, )"
             },
             "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[2.4.0, )"
+              "version": "[2.4.2, )"
             }
           },
           "imports": [
