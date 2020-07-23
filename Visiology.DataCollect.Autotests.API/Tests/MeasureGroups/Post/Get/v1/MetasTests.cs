@@ -41,7 +41,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v1
         /// Тест получения всех метаописаний групп показателей без параметров
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "MeasureGroups")]
         public async Task GetAll()
         {
             var result = await ExecuteGet(TokenRoleType.UserWithRole, measureGroupsCount);
@@ -54,7 +54,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v1
         /// </summary>
         /// <param name="getAll">Параметр getAll</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "MeasureGroups")]
         [InlineData(true)]
         [InlineData(false)]
         public async Task GetAll_WithParamGetAll(bool getAll)
@@ -77,7 +77,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v1
         /// </summary>
         /// <param name="limit">Параметр limit</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "MeasureGroups")]
         [InlineData(TestValues.MoreThanZeroValue)]
         public async Task GetAll_WithParamLimit(int limit)
         {
@@ -96,7 +96,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v1
         /// </summary>
         /// <param name="skip">Параметр skip</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "MeasureGroups")]
         [InlineData(TestValues.ZeroValue)]
         [InlineData(TestValues.MoreThanZeroValue)]
         public async Task GetAll_WithParamSkip(int skip)
@@ -117,7 +117,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v1
         /// <param name="skip">Параметр skip</param>
         /// <param name="limit">Параметр limit</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "MeasureGroups")]
         [InlineData(TestValues.MoreThanZeroValue, TestValues.MoreThanZeroValue)]
         public async Task GetAll_WithParamsSkipAndLimit(int skip, int limit)
         {
@@ -137,7 +137,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v1
         /// </summary>
         /// <param name="measureGroupId">Идентификатор группы показателей</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "MeasureGroups")]
         [InlineData(TestValues.NonExistуEntityId)]
         [InlineData(TestValues.ZeroId)]
         public async Task Get_WithInvalidMgId(int? measureGroupId)
@@ -152,7 +152,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v1
         /// Тест получения метаописаний одной группы показателей 
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "MeasureGroups")]
         public async Task Get_WithMgId()
         {
             Url = string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlGetMeasureGroupPath")}", measureGroupId);

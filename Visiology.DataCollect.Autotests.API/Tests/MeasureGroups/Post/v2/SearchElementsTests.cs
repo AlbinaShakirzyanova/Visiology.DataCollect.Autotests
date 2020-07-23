@@ -31,7 +31,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
         ///// Тест получения элементов группы показатеелй по простому фильтру типа calendar
         ///// </summary>
         ///// <returns>Ожидаемый результат - положительный</returns>
-        //[Fact]
+        //[Fact, Trait("Category", "MeasureGroups")]
         //public async Task GetAll_BySimpleCalendarFilter()
         //{
         //    var filter = new SimpleFilter

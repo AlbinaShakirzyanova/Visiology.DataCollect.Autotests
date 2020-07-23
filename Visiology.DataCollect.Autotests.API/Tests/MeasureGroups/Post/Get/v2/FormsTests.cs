@@ -45,7 +45,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v2
         /// </summary>
         /// <param name="mgId">Идентификатор группы показателей</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "MeasureGroups")]
         [InlineData(null)]
         public async Task Get_WithInvalidMgId(int? mgId)
         {
@@ -59,7 +59,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v2
         /// Тест получения данных при отсутствии токена в запросе
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "MeasureGroups")]
         public async Task GetAll_WithoutToken()
         {
             using (var client = new HttpClient())
@@ -79,7 +79,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v2
         /// Тест получения форм группы показателей для пользователя с ролью "Администратор"
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "MeasureGroups")]
         public async Task GetAll_ForAdminUser()
         {
             var result = await ExecuteGet(TokenRoleType.UserAdmin, adminUserFormsCount);
@@ -91,7 +91,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v2
         /// Тест получения форм группы показателей для пользователя с ролью
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "MeasureGroups")]
         public async Task GetAll_ForUser()
         {
             var result = await ExecuteGet(TokenRoleType.UserWithRole, userFormsCount);

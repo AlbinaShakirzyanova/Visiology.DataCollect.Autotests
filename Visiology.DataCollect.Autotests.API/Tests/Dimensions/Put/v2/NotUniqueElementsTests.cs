@@ -48,7 +48,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Обновление атрибута у элемента через API с нарушением уникальности
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithUniquenessViolation()
         {
             var fields = new[]

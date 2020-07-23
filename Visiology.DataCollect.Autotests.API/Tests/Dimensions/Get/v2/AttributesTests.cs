@@ -34,7 +34,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// </summary>
         /// <param name="dimensionId">Идентификато измерения</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(null)]
         public async Task GetAll_WithInvalidDimensionId(string dimensionId)
         {
@@ -49,7 +49,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// </summary>
         /// <param name="tokenRoleType">Тип токена пользоателя(по роли)</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithFakeRole)]
         public async Task GetAll_WithInvalidTokenType(TokenRoleType tokenRoleType)
         {
@@ -62,7 +62,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// Тест получения атрибутов измерения без параметров
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task GetAll_WithoutParameters()
         {
             //Ожидаемое количество атрибутов в измерении
@@ -78,7 +78,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// </summary>
         /// <param name="getAll">Параметр getAll</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(true)]
         [InlineData(false)]
         public async Task Success_GetAll_WithParamGetAll(bool getAll)
@@ -101,7 +101,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// </summary>
         /// <param name="limit">Параметр limit</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.MoreThanZeroValue)]
         public async Task Success_GetAll_WithParamLimit(int limit)
         {
@@ -120,7 +120,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// </summary>
         /// <param name="skip">Параметр skip</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.ZeroValue)]
         [InlineData(TestValues.MoreThanZeroValue)]
         public async Task Success_GetAll_WithParamSkip(int skip)
@@ -144,7 +144,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// <param name="skip">Параметр skip</param>
         /// <param name="limit">Параметр limit</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.MoreThanZeroValue, TestValues.MoreThanZeroValue)]
         public async Task Success_GetAll_WithParamsSkipAndLimit(int skip, int limit)
         {

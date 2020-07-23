@@ -46,7 +46,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// </summary>
         /// <param name="dimensionId">Идентификатор измерения</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserAdmin, TestValues.ZeroId)]
         [InlineData(TokenRoleType.UserAdmin, TestValues.NonExistId)]
         [InlineData(TokenRoleType.UserAdmin, null)]
@@ -79,7 +79,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест создания элементов измерения при отсутствии у пользователя роли на измерение
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithFakeRole)]
         public async Task Create_WithoutPermissionToDimension(TokenRoleType token)
         {
@@ -108,7 +108,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест создания элемента на конечном уровне
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Create_ForLastLevel(TokenRoleType token)
         {
@@ -177,7 +177,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест создания элемента на уровне
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Create_ForLevel(TokenRoleType token)
         {
@@ -245,7 +245,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест создания элемента в корне
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Create_ForRoot(TokenRoleType token)
         {
@@ -310,7 +310,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест восстановления элементов
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task ReCreateElement(TokenRoleType token)
         {
@@ -376,7 +376,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест создания элементов по идентификатору уже существующего элемента
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Create_ForExistId(TokenRoleType token)
         {
@@ -407,7 +407,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест создания элемента по имени уже существующего элемента в той же папке
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Create_ForExistName_ForSamePath(TokenRoleType token)
         {
@@ -437,7 +437,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест создания элемента по имени уже существующего элемента по другому пути
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Create_ForExistName_ForAnotherPath(TokenRoleType token)
         {
@@ -508,7 +508,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест проверки сдвига идентификатора 
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Create_WithoutId(TokenRoleType token)
         {
@@ -597,7 +597,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест создания элемента по FolderId
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Create_ForFolderId(TokenRoleType token)
         {
@@ -665,7 +665,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест создания элемента с атрибутами
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Create_WithAttributes(TokenRoleType token)
         {
@@ -739,7 +739,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест создания элемента с созданием иерархии каталогов
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Create_WithCreationOfFolders(TokenRoleType token)
         {
@@ -799,7 +799,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Тест создания элемента с частичным созданием иерархии каталогов
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Create_WithPartialCreationOfFolders(TokenRoleType token)
         {

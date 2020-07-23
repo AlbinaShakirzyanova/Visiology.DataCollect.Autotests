@@ -46,7 +46,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// </summary>
         /// <param name="dimensionId">Идентификато измерения</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserAdmin, TestValues.ZeroId)]
         [InlineData(TokenRoleType.UserAdmin, TestValues.NonExistId)]
         [InlineData(TokenRoleType.UserAdmin, null)]
@@ -63,7 +63,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// </summary>
         /// <param name="tokenRoleType">Тип токена пользоателя(по роли)</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithFakeRole)]
         public async Task GetAll_WithInvalidTokenType(TokenRoleType token)
         {
@@ -77,7 +77,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// </summary>
         /// <param name="getAll">Параметр getAll</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole, true)]
         [InlineData(TokenRoleType.UserWithRole, false)]
         public async Task GetAll_WithParamGetAll(TokenRoleType token, bool getAll)
@@ -99,7 +99,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест получения элементов измерения без тела
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task GetAll_WithoutBody(TokenRoleType token)
         {
@@ -116,7 +116,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// </summary>
         /// <param name="limit">Параметр limit</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole, TestValues.MoreThanZeroValue)]
         public async Task GetAll_WithParamLimit(TokenRoleType token, int limit)
         {
@@ -135,7 +135,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// </summary>
         /// <param name="skip">Параметр skip</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole, TestValues.ZeroValue)]
         [InlineData(TokenRoleType.UserWithRole, TestValues.MoreThanZeroValue)]
         [InlineData(TokenRoleType.UserWithRole, 17)]
@@ -159,7 +159,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест простого фильтра типа "id"
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Get_WithSimpleIdFilter(TokenRoleType token)
         {
@@ -205,7 +205,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест простого фильтра типа "name" (получение одного элемента)
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithSimpleNameFilter()
         {
             var filter = new SimpleFilter
@@ -250,7 +250,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест именованного фильтра типа "level"
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedLevelFilter()
         {
             var filter = new NamedFilter
@@ -334,7 +334,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест именованного фильтра "level" по конечному уровню
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedLevelFilterForLastLevel()
         {
             var filter = new NamedFilter
@@ -380,7 +380,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Equals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForIntAttribute_EqualsCondition()
         {
             var filter = new NamedFilter
@@ -427,7 +427,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации GreaterOrEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Get_WithNamedAttributeFilter_ForIntAttribute_GreaterOrEqualsCondition()
         {
             var filter = new NamedFilter
@@ -531,7 +531,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Greater
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForIntAttribute_GreaterCondition()
         {
             var filter = new NamedFilter
@@ -578,7 +578,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Less
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForIntAttribute_LessCondition()
         {
             var filter = new NamedFilter
@@ -644,7 +644,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации LessOrEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForIntAttribute_LessOrEqualsCondition()
         {
             var filter = new NamedFilter
@@ -729,7 +729,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации NotEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForIntAttribute_NotEqualsCondition()
         {
             var filter = new NamedFilter
@@ -833,7 +833,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Contains
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForIntAttribute_ContainsCondition()
         {
             var filter = new NamedFilter
@@ -858,7 +858,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// </summary>
         /// <param name="attributeValue">Значение атрибута</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.StringValue)]
         [InlineData(TestValues.FloatValue)]
         public async Task Get_WithNamedAttributeFilter_ForIntAttribute_WithInvalidAttributeValue(object attributeValue)
@@ -884,7 +884,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки null значения по атрибуту
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForIntAttribute_WithNullAttributeValue()
         {
             var filter = new NamedFilter
@@ -911,7 +911,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// </summary>
         /// <param name="condition">Условие фильтрации</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(FilterCondition.greater)]
         [InlineData(FilterCondition.greaterorequals)]
         [InlineData(FilterCondition.less)]
@@ -939,7 +939,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Contains
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForStringAttribute_ContainsCondition()
         {
             var filter = new NamedFilter
@@ -1024,7 +1024,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Equals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForStringAttribute_EqualsCondition()
         {
             var filter = new NamedFilter
@@ -1071,7 +1071,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки null значения по атрибуту
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForStringAttribute_WithNullAttributeValue()
         {
             var filter = new NamedFilter
@@ -1097,7 +1097,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильрации NotEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForStringAttribute_NotEqualsCondition()
         {
             var filter = new NamedFilter
@@ -1201,7 +1201,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Equals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForFloatAttribute_EqualsCondition()
         {
             var filter = new NamedFilter
@@ -1248,7 +1248,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации GreaterOrEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForFloatAttribute_GreaterOrEqualsCondition()
         {
             var filter = new NamedFilter
@@ -1390,7 +1390,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Greater
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForFloatAttribute_GreaterCondition()
         {
             var filter = new NamedFilter
@@ -1475,7 +1475,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Less
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForFloatAttribute_LessCondition()
         {
             var filter = new NamedFilter
@@ -1522,7 +1522,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации LessOrEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForFloatAttribute_LessOrEqualsCondition()
         {
             var filter = new NamedFilter
@@ -1626,7 +1626,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации NotEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForFloatAttribute_NotEqualsCondition()
         {
             var filter = new NamedFilter
@@ -1730,7 +1730,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Contains
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Fail_Get_WithNamedAttributeFilter_ForFloatAttribute_ContainsCondition()
         {
             var filter = new NamedFilter
@@ -1755,7 +1755,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// </summary>
         /// <param name="attributeValue">Значение атрибута</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.StringValue)]
         public async Task Get_WithNamedAttributeFilter_ForFloatAttribute_WithInvalidAttributeValue(object attributeValue)
         {
@@ -1780,7 +1780,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки null значения по атрибуту
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForFloatAttribute_WithNullAttributeValue()
         {
             var filter = new NamedFilter
@@ -1806,7 +1806,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Equals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForDateAttribute_EqualsCondition()
         {
             var filter = new NamedFilter
@@ -1853,7 +1853,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации GreaterOrEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForDateAttribute_GreaterOrEqualsCondition()
         {
             var filter = new NamedFilter
@@ -1976,7 +1976,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Greater
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForDateAttribute_GreaterCondition()
         {
             var filter = new NamedFilter
@@ -2061,7 +2061,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Less
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForDateAttribute_LessCondition()
         {
             var filter = new NamedFilter
@@ -2108,7 +2108,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации LessOrEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForDateAttribute_LessOrEqualsCondition()
         {
             var filter = new NamedFilter
@@ -2155,7 +2155,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации NotEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForDateAttribute_NotEqualsCondition()
         {
             var filter = new NamedFilter
@@ -2297,7 +2297,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Contains
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForDateAttribute_ContainsCondition()
         {
             var filter = new NamedFilter
@@ -2322,7 +2322,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// </summary>
         /// <param name="attributeValue">Значение атрибута</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.StringValue)]
         [InlineData(TestValues.IntValue)]
         [InlineData(TestValues.DateValueToStringIncorrectFormat)]
@@ -2349,7 +2349,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки null значения по атрибуту
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForDateAttribute_WithNullAttributeValue()
         {
             var filter = new NamedFilter
@@ -2375,7 +2375,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Equals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForLinkAttribute_EqualsCondition()
         {
             var filter = new NamedFilter
@@ -2441,7 +2441,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации GreaterOrEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForLinkAttribute_GreaterOrEqualsCondition()
         {
             var filter = new NamedFilter
@@ -2507,7 +2507,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Greater
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForLinkAttribute_GreaterCondition()
         {
             var filter = new NamedFilter
@@ -2533,7 +2533,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Less
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForLinkAttribute_LessCondition()
         {
             var filter = new NamedFilter
@@ -2675,7 +2675,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации LessOrEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForLinkAttribute_LessOrEqualsCondition()
         {
             var filter = new NamedFilter
@@ -2817,7 +2817,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации NotEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForLinkAttribute_NotEqualsCondition()
         {
             var filter = new NamedFilter
@@ -2883,7 +2883,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Contains
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForLinkAttribute_ContainsCondition()
         {
             var filter = new NamedFilter
@@ -2908,7 +2908,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// </summary>
         /// <param name="attributeValue">Значение атрибута</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.StringValue)]
         [InlineData(TestValues.NonExistId)]
         [InlineData(TestValues.ZeroId)]
@@ -2937,7 +2937,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// </summary>
         /// <param name="condition">Условие фильтрации</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(FilterCondition.greater)]
         [InlineData(FilterCondition.greaterorequals)]
         [InlineData(FilterCondition.less)]
@@ -2965,7 +2965,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Contains
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForTextAttribute_ContainsCondition()
         {
             var filter = new NamedFilter
@@ -3107,7 +3107,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильтрации Equals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForTextAttribute_EqualsCondition()
         {
             var filter = new NamedFilter
@@ -3154,7 +3154,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки null значения по атрибуту
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForTextAttribute_WithNullAttributeValue()
         {
             var filter = new NamedFilter
@@ -3180,7 +3180,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки условия фильрации NotEquals
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForTextAttribute_NotEqualsCondition()
         {
             var filter = new NamedFilter
@@ -3302,7 +3302,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест комплексного фильтра And
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithComplexAndFilter()
         {
             var filter = new
@@ -3362,7 +3362,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест комплексного фильтра Or
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithComplexOrFilter()
         {
             var filter = new
@@ -3443,7 +3443,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// Тест-кейс проверки null значения по атрибуту
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Get_WithNamedAttributeFilter_ForLinkAttribute_WithNullAttributeValue()
         {
             var filter = new NamedFilter

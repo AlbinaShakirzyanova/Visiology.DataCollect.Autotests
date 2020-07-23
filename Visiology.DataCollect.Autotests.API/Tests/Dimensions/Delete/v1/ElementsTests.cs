@@ -51,7 +51,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// </summary>
         /// <param name="dimensionId">Идентификатор измерения</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.ZeroId)]
         [InlineData(TestValues.NonExistId)]
         [InlineData(null)]
@@ -73,7 +73,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов измерения при отсутствии у пользователя роли на измерение
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithFakeRole)]
         public async Task DeleteAll_WithoutPermissionToDimension(TokenRoleType token)
         {
@@ -91,7 +91,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления всех элементов без тела 
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task DeleteAll_WithoutBody(TokenRoleType token)
         {
@@ -121,7 +121,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элемента на конечном уровне
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_ForLastLevel(TokenRoleType token)
         {
@@ -158,7 +158,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элемента на уровне
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_ForLevel(TokenRoleType token)
         {
@@ -196,7 +196,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элемента в корне
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_ForRoot(TokenRoleType token)
         {
@@ -233,7 +233,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов без изменений
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithoutDelete(TokenRoleType token)
         {
@@ -272,7 +272,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов, недоступных для удаления
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>               
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserAdmin)]
         public async Task Delete_ForUnchangedElement(TokenRoleType token)
         {
@@ -301,7 +301,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов по простому фильтру типа "id"
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithSimpleIdFilter(TokenRoleType token)
         {
@@ -341,7 +341,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов по простому фильтру типа "name"
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithSimpleNameFilter(TokenRoleType token)
         {
@@ -379,7 +379,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов по именованному фильтру "level"
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithNamedLevelFilter(TokenRoleType token)
         {
@@ -418,7 +418,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов по именованному фильтру "level" по конечному уровню
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithNamedLevelFilterForLastLevel(TokenRoleType token)
         {
@@ -456,7 +456,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов по именованному фильтру "attribute", где атрибут типа int
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithNamedAttributeFilter_ForIntAttribute(TokenRoleType token)
         {
@@ -494,7 +494,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов по именованному фильтру "attribute", где атрибут типа string
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithNamedAttributeFilter_ForStringAttribute(TokenRoleType token)
         {
@@ -532,7 +532,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов по именованному фильтру "attribute", где атрибут типа Float
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithNamedAttributeFilter_ForFloatAttribute(TokenRoleType token)
         {
@@ -570,7 +570,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов по именованному фильтру "attribute", где атрибут типа Date
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithNamedAttributeFilter_ForDateAttribute(TokenRoleType token)
         {
@@ -608,7 +608,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов по именованному фильтру "attribute", где атрибут типа Link
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithNamedAttributeFilter_ForLinkAttribute(TokenRoleType token)
         {
@@ -646,7 +646,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов по именованному фильтру "attribute", где атрибут типа Text
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithNamedAttributeFilter_ForTextAttribute(TokenRoleType token)
         {
@@ -684,7 +684,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов по комплексному фильтру and
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithComplexAndFilter(TokenRoleType token)
         {
@@ -736,7 +736,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
         /// Тест удаления элементов по комплексному фильтру Or
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithComplexOrFilter(TokenRoleType token)
         {

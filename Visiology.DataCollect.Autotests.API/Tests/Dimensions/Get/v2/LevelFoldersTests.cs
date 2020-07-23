@@ -40,7 +40,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// </summary>
         /// <param name="dimensionId">Идентификато измерения</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.ZeroId)]
         [InlineData(TestValues.NonExistId)]
         [InlineData(null)]
@@ -57,7 +57,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// </summary>
         /// <param name="getAll">Параметр getAll</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(true)]
         [InlineData(false)]
         public async Task GetAll_WithParamGetAll(bool getAll)
@@ -80,7 +80,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// </summary>
         /// <param name="limit">Параметр limit</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.MoreThanZeroValue)]
         public async Task GetAll_WithParamLimit(int limit)
         {
@@ -99,7 +99,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// </summary>
         /// <param name="skip">Параметр skip</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.ZeroValue)]
         [InlineData(TestValues.MoreThanZeroValue)]
         public async Task GetAll_WithParamSkip(int skip)
@@ -127,7 +127,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// <param name="skip">Параметр skip</param>
         /// <param name="limit">Параметр limit</param>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.MoreThanZeroValue, TestValues.MoreThanZeroValue)]
         public async Task GetAll_WithParamsSkipAndLimit(int skip, int limit)
         {

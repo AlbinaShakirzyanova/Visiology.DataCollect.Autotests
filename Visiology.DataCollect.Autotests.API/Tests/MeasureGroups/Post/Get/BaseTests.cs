@@ -24,7 +24,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get
         /// Тест получения данных при отсутствии токена в запросе
         /// </summary>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "MeasureGroups")]
         public async Task GetAll_WithoutToken()
         {
             using (var client = new HttpClient())
@@ -45,7 +45,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get
         /// </summary>
         /// <param name="getAll">Параметр getAll</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "MeasureGroups")]
         [InlineData(null)]
         public async Task GetAll_WithInvalidParamGetAll(bool? getAll)
         {
@@ -66,7 +66,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get
         /// </summary>
         /// <param name="limit">Параметр limit</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "MeasureGroups")]
         [InlineData(TestValues.ZeroValue)]
         [InlineData(TestValues.LessThanZeroValue)]
         [InlineData(null)]
@@ -89,7 +89,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get
         /// </summary>
         /// <param name="skip">Параметр skip</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "MeasureGroups")]
         [InlineData(TestValues.LessThanZeroValue)]
         [InlineData(null)]
         public async Task GetAll_WithInvalidParamSkip(int? skip)
@@ -112,7 +112,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get
         /// <param name="skip">Параметр skip</param>
         /// <param name="getAll">Параметр getAll</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "MeasureGroups")]
         [InlineData(TestValues.MoreThanZeroValue, true)]
         [InlineData(TestValues.MoreThanZeroValue, false)]
         public async Task GetAll_WithParamsSkipAndGetAll(int skip, bool getAll)
@@ -136,7 +136,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get
         /// <param name="limit">Параметр limit</param>
         /// <param name="getAll">Параметр getAll</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "MeasureGroups")]
         [InlineData(TestValues.MoreThanZeroValue, true)]
         [InlineData(TestValues.MoreThanZeroValue, false)]
         public async Task GetAll_WithParamsLimitAndGetAll(int limit, bool getAll)
@@ -161,7 +161,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get
         /// <param name="skip">Параметр skip</param>
         /// <param name="getAll">Параметр getAll</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "MeasureGroups")]
         [InlineData(TestValues.MoreThanZeroValue, TestValues.MoreThanZeroValue, true)]
         [InlineData(TestValues.MoreThanZeroValue, TestValues.MoreThanZeroValue, false)]
         public async Task GetAll_WithAllParams(int limit, int skip, bool getAll)

@@ -46,7 +46,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// <summary>
         /// Тестирование создания неуникальных наименований  без заполнения атрибутов
         /// </summary>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Create_WithoutAttributeValues()
         {
             var body = new[]
@@ -82,7 +82,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// <summary>
         /// Тестирование создания  с заполнением атрибутов. Проверка кейса с одинаковыми значениями атрибутов
         /// </summary>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Create_WithEqualAttributeValues()
         {
             // Создание первого элемента
@@ -128,7 +128,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Проверка атрибута типа string
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Create_WithStringAttributeValues()
         {
             // Создание первого элемента
@@ -170,7 +170,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Проверка кейса с пустым значениям по  атрибуту для одного из элементов
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Create_WithEmptyAttributeValue()
         {
             // Создание первого элемента
@@ -209,7 +209,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Проверка атрибута типа int
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Create_WithIntAttributeValues()
         {
             // Создание первого элемента
@@ -251,7 +251,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Проверка атрибута типа float
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Create_WithFloatAttributeValues()
         {
             // Создание первого элемента
@@ -293,7 +293,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Проверка атрибута типа link
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Create_WithLinkAttributeValues()
         {
             // Создание первого элемента
@@ -335,7 +335,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Проверка атрибута типа date
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Create_WithDateAttributeValues()
         {
             // Создание первого элемента
@@ -377,7 +377,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Проверка сравнения по нескольким атрибутам
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Create_WithFewAttributes()
         {
             // Создание первого элемента
@@ -421,7 +421,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Проверка отображения строки с пробелом
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Create_WithEmptyAndSpacebarAttributeValues()
         {
             // Создание первого элемента
@@ -460,7 +460,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Проверка атрибута типа text
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Create_WithTextAttributeValues()
         {
             // Создание первого элемента
@@ -502,7 +502,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// Проверка атрибута типа text
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Create_WithNotUqiqueLinkAttributeValues()
         {
             // Создание первого элемента

@@ -71,7 +71,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="dimensionId">Идентификатор измерения</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.ZeroId)]
         [InlineData(TestValues.NonExistId)]
         [InlineData(null)]
@@ -119,7 +119,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="tokenRoleType">Тип токена пользователя(по роли)</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithoutPermissionToDimension()
         {
             Url = GetUrl(adminDimensionId);
@@ -166,7 +166,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// <param name="tokenRoleType">Тип токена пользователя(по роли)</param>
         /// <param name="dimensionId">Идентификатор измерения</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserAdmin, adminDimensionId)]
         [InlineData(TokenRoleType.UserWithRole, userDimensionId)]
         public async Task UpdateAll_WithoutBody(TokenRoleType tokenRoleType, string dimensionId)
@@ -191,7 +191,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="tokenRoleType">Тип токена пользователя(по роли)</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TokenRoleType.UserAdmin)]
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task UpdateAll_WithSimpleNameField(TokenRoleType tokenRoleType)
@@ -233,7 +233,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления имени всех элементов пользователем с ролью "Администратор"
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task UpdateAll_WithSimpleNameField_ForAdmin()
         {
             // В дампе "Тестовое измерение для обновления имени всех элементов Success Admin"
@@ -295,7 +295,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления имени всех элементов пользователем с ролью
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task UpdateAll_WithSimpleNameField_ForUser()
         {
             // В дампе "Тестовое измерение для обновления имени всех элементов Success User"
@@ -357,7 +357,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления наименования элемента на конечном уровне
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithSimpleNameField_ForLastLevel()
         {
             var testValue = "Тест обновления наименования элемента на конечном уровне";
@@ -438,7 +438,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления наименования элемента на уровне
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithSimpleNameField_ForLevel()
         {
             var testValue = "Тест обновления наименования элемента на уровне";
@@ -518,7 +518,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления наименования элемента в корне
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithSimpleNameField_ForRoot()
         {
             var testValue = "Тест обновления наименования элемента в корне";
@@ -596,7 +596,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест-кейс переноса из корня в существующую иерархию каталогов
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithNamedLevelField_FromRootToExistFoldersHierarchy()
         {
             Url = GetUrl(userDimensionId);
@@ -669,7 +669,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест-кейс переноса из корня в существующий каталог с созданием дочернего каталога
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithNamedLevelField_FromRootToPartiallyExistFoldersHierarchy()
         {
             Url = GetUrl(userDimensionId);
@@ -753,7 +753,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест-кейс переноса из корня с созданием иерархии каталогов
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithNamedLevelField_FromRootToNotExistFoldersHierarchy()
         {
             Url = GetUrl(userDimensionId);
@@ -835,7 +835,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест-кейс переноса из существующей иерархии каталогов в каталог с созданием дочернего каталога
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithNamedLevelField_FromExistFoldersHierarchyToPartiallyExistFoldersHierarchy()
         {
             Url = GetUrl(userDimensionId);
@@ -919,7 +919,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест-кейс переноса из существующей иерархии каталогов в существующую иерархию каталогов
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithNamedLevelField_FromExistFoldersHierarchyToExistFoldersHierarchy()
         {
             Url = GetUrl(userDimensionId);
@@ -1001,7 +1001,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест-кейс переименования элемента при передаче в именованном поле наименования уровня элемента
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task UpdateElementName_WithNamedLevelField()
         {
             Url = GetUrl(userDimensionId);
@@ -1083,7 +1083,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="attributeValue">Значение тестируемого типа атрибута</param>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(null)]
         [InlineData(TestValues.IntValue)]
         [InlineData(TestValues.FloatValueConvertibleToInt)]
@@ -1163,7 +1163,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="attributeValue">Значение тестируемого типа атрибута</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.FloatValue)]
         [InlineData(TestValues.StringValue)]
         public async Task UpdateAll_NamedAttributeField_ForInvalidIntAttribute(object attributeValue)
@@ -1207,7 +1207,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="attributeValue">Значение тестируемого типа атрибута</param>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(null)]
         [InlineData(TestValues.IntValue)]
         [InlineData(TestValues.FloatValue)]
@@ -1286,7 +1286,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="attributeValue">Значение тестируемого типа атрибута</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.StringValue)]
         public async Task UpdateAll_NamedAttributeField_ForInvalidFloatAttribute(object attributeValue)
         {
@@ -1329,7 +1329,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="attributeValue">Значение тестируемого типа атрибута</param>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.StringValue)]
         [InlineData(TestValues.IntValue)]
         [InlineData(null)]
@@ -1408,7 +1408,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="attributeValue">Значение тестируемого типа атрибута</param>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.DateValueToStringCorrectFormat)]
         [InlineData(null)]
         public async Task UpdateAll_NamedAttributeField_ForDateAttribute(object attributeValue)
@@ -1486,7 +1486,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="attributeValue">Значение тестируемого типа атрибута</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.DateValueToStringIncorrectFormat)]
         [InlineData(TestValues.StringValue)]
         public async Task UpdateAll_NamedAttributeField_ForInvalidDateAttribute(object attributeValue)
@@ -1530,7 +1530,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="attributeValue">Значение тестируемого типа атрибута</param>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.StringValueConvertibleToInt)]
         [InlineData(TestValues.FloatValueConvertibleToInt)]
         [InlineData(null)]
@@ -1610,7 +1610,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="attributeValue">Значение тестируемого типа атрибута</param>
         /// <returns>Ожидаемый результат - отрицательный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.StringValue)]
         [InlineData(TestValues.NonExistId)]
         [InlineData(TestValues.ZeroId)]
@@ -1655,7 +1655,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// </summary>
         /// <param name="attributeValue">Значение тестируемого типа атрибута</param>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Theory]
+        [Theory, Trait("Category", "Dimensions")]
         [InlineData(TestValues.TextValue)]
         [InlineData(TestValues.IntValue)]
         [InlineData(null)]
@@ -1733,7 +1733,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления  элементов по именованному полю типа "attribute" для всех типов атрибутов одновременно
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_NamedAttributeField_ForAllAttribute()
         {
             Url = GetUrl(userDimensionId);
@@ -1838,7 +1838,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления  элементов без изменений
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>              
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithoutChanges()
         {
             Url = GetUrl(userDimensionId);
@@ -1915,7 +1915,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления  элементов, недоступных для обновления
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>               
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithRestricted()
         {
             Url = GetUrl(restrictedElementsDimensionId);
@@ -1949,7 +1949,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления  атрибута типа Link Элемента в случае отсутсвия у пользователя прав на линкованное измерение
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>               
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Update_WithInvalidLinkAttributePermissions()
         {
             Url = GetUrl(forLinkAttributeDimensionId);
@@ -1983,7 +1983,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления элементов простым фильтром типа "id"
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Update_WithSimpleIdFilter()
         {
             Url = GetUrl(forFiltersDimensionId);
@@ -2060,7 +2060,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления элементов простым фильтром типа "name"
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Update_WithSimpleNameFilter()
         {
             Url = GetUrl(forFiltersDimensionId);
@@ -2136,7 +2136,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления элементов с именованным фильтром "level"
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Update_WithNamedLevelFilter()
         {
             Url = GetUrl(forFiltersDimensionId);
@@ -2251,7 +2251,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления элементов с именованным фильтром "level" по конечному уровню
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Update_WithNamedLevelFilterForLastLevel()
         {
             Url = GetUrl(forFiltersDimensionId);
@@ -2328,7 +2328,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления элементов с именованным фильтром "attribute", где атрибут типа int
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Update_WithNamedAttributeFilter_ForIntAttribute()
         {
             Url = GetUrl(forFiltersDimensionId);
@@ -2410,7 +2410,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления элементов с именованным фильтром "attribute", где атрибут типа string
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Update_WithNamedAttributeFilter_ForStringAttribute()
         {
             Url = GetUrl(forFiltersDimensionId);
@@ -2492,7 +2492,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления элементов с именованным фильтром "attribute", где атрибут типа Float
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Update_WithNamedAttributeFilter_ForFloatAttribute()
         {
             Url = GetUrl(forFiltersDimensionId);
@@ -2574,7 +2574,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления элементов с именованным фильтром "attribute", где атрибут типа Date
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Update_WithNamedAttributeFilter_ForDateAttribute()
         {
             Url = GetUrl(forFiltersDimensionId);
@@ -2656,7 +2656,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления элементов с именованным фильтром "attribute", где атрибут типа Link
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Update_WithNamedAttributeFilter_ForLinkAttribute()
         {
             Url = GetUrl(forFiltersDimensionId);
@@ -2738,7 +2738,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления элементов с именованным фильтром "attribute", где атрибут типа Text
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Update_WithNamedAttributeFilter_ForTextAttribute()
         {
             Url = GetUrl(forFiltersDimensionId);
@@ -2820,7 +2820,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления элементов с комплексным фильтром and
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Update_WithComplexAndFilter()
         {
             Url = GetUrl(forFiltersDimensionId);
@@ -2916,7 +2916,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
         /// Тест обновления элементов с косплексным фильтром Or
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact]
+        [Fact, Trait("Category", "Dimensions")]
         public async Task Success_Update_WithComplexOrFilter()
         {
             Url = GetUrl(forFiltersDimensionId);
