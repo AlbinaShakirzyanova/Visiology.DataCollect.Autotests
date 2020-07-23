@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Visiology.DataCollect.Autotests.Entities.Results;
-using Visiology.DataCollect.Integration.Tests.Models;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities.Results;
 
 /// TODO Вынести все вспомогательные сущности в отдельные проекты
 namespace Visiology.DataCollect.Integration.Tests.Infrastructure.Interfaces

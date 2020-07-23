@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Models.Dimensions.Attributes;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
+namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
 {
     /// <summary>
     /// Класс тестирования метода получения атрибутов измерения
@@ -24,7 +24,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
         public AttributesTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService)
         {
-            this.Url = this.GetUrl(dimensionId);
+            Url = GetUrl(dimensionId);
         }
 
         public override string Url { get; set; }
@@ -38,8 +38,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
         [InlineData(null)]
         public async Task GetAll_WithInvalidDimensionId(string dimensionId)
         {
-            this.Url = this.GetUrl(dimensionId);
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, 0);
+            Url = GetUrl(dimensionId);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, 0);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -53,7 +53,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
         [InlineData(TokenRoleType.UserWithFakeRole)]
         public async Task GetAll_WithInvalidTokenType(TokenRoleType tokenRoleType)
         {
-            var result = await this.ExecuteGet(tokenRoleType, 0);
+            var result = await ExecuteGet(tokenRoleType, 0);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -68,7 +68,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
             //Ожидаемое количество атрибутов в измерении
             var attributesCount = 12;
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, attributesCount);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, attributesCount);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -91,7 +91,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
             //Ожидаемое количество атрибутов в измерении
             var attributesCount = 12;
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, attributesCount, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, attributesCount, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -110,7 +110,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
                     { Parameters.Limit, limit }
             };
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, limit, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, limit, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -133,7 +133,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
             //Ожидаемое количество атрибутов в измерении
             var attributesCount = 12;
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, attributesCount - skip, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, attributesCount - skip, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -154,7 +154,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
                     { Parameters.Limit, limit }
             };
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, limit, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, limit, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -166,7 +166,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
 
         protected override string GetUrl(string dimensionId)
         {
-            return string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlGetDimensionAttributesPath")}", dimensionId);
+            return string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlGetDimensionAttributesPath")}", dimensionId);
         }
     }
 }

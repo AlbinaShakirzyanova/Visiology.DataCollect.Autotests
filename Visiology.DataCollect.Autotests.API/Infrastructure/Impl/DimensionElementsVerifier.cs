@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Visiology.DataCollect.Autotests.Entities.Results;
-using Visiology.DataCollect.Integration.Tests.Models;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities.Results;
 using Visiology.DataCollect.Integration.Tests.Models.Dimensions.Elements;
 
 namespace Visiology.DataCollect.Integration.Tests.Infrastructure.Impl

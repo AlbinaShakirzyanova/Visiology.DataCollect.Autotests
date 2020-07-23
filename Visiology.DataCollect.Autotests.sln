@@ -1,19 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2042
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessRules", "BusinessRules", "{88697D11-1031-41F6-A549-F78ADCA37992}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visiology.DataCollect.Autotests.BusinessRules", "Visiology.DataCollect.Autotests.BusinessRules\Visiology.DataCollect.Autotests.BusinessRules.csproj", "{AEC10D37-683A-485E-9143-0E4E5AD98A1B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{E8181FEF-1A20-422C-9024-79700A565FEC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Visiology.DataCollect.Autotests.API", "Visiology.DataCollect.Autotests.API\Visiology.DataCollect.Autotests.API.csproj", "{95018E71-4568-4DE5-A8B7-AFE0DD39F8D9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visiology.DataCollect.Autotests.Infrastructure", "Visiology.DataCollect.Autotests.Infrastructure\Visiology.DataCollect.Autotests.Infrastructure.csproj", "{4BCC5D98-9C07-4A8F-8D00-CE89399BE4CD}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{12BC37A0-43E3-4CA1-9585-CEB58D739406}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,26 +13,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AEC10D37-683A-485E-9143-0E4E5AD98A1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AEC10D37-683A-485E-9143-0E4E5AD98A1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AEC10D37-683A-485E-9143-0E4E5AD98A1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AEC10D37-683A-485E-9143-0E4E5AD98A1B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{95018E71-4568-4DE5-A8B7-AFE0DD39F8D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{95018E71-4568-4DE5-A8B7-AFE0DD39F8D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95018E71-4568-4DE5-A8B7-AFE0DD39F8D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95018E71-4568-4DE5-A8B7-AFE0DD39F8D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4BCC5D98-9C07-4A8F-8D00-CE89399BE4CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BCC5D98-9C07-4A8F-8D00-CE89399BE4CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BCC5D98-9C07-4A8F-8D00-CE89399BE4CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BCC5D98-9C07-4A8F-8D00-CE89399BE4CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{AEC10D37-683A-485E-9143-0E4E5AD98A1B} = {88697D11-1031-41F6-A549-F78ADCA37992}
 		{95018E71-4568-4DE5-A8B7-AFE0DD39F8D9} = {E8181FEF-1A20-422C-9024-79700A565FEC}
-		{4BCC5D98-9C07-4A8F-8D00-CE89399BE4CD} = {12BC37A0-43E3-4CA1-9585-CEB58D739406}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4FDBEE23-9801-4E83-878D-9D2F5FE58BD9}

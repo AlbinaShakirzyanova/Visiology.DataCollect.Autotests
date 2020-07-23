@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Visiology.DataCollect.Autotests.Entities.Results;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities.Results;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Interfaces;
-using Visiology.DataCollect.Integration.Tests.Models;
 
 namespace Visiology.DataCollect.Integration.Tests.Infrastructure.Impl
 {

@@ -2,7 +2,7 @@
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 
-namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v2
+namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v2
 {
     /// <summary>
     /// Класс тестирования метода обновления элементов измерения
@@ -25,6 +25,6 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v2
         public ElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService)
         {
-        }                             
+        }
     }
 }

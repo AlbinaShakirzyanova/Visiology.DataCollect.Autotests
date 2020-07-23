@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Models.Dimensions.Elements;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v1
+namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v1
 {
     /// <summary>
     /// Класс тестирования получения элементов измерения
@@ -25,7 +26,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v1
         public ElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService)
         {
-            this.Url = this.GetUrl(dimensionId);
+            Url = GetUrl(dimensionId);
         }
 
         /// <summary>
@@ -39,8 +40,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v1
         [InlineData(null)]
         public async Task Fail_GetAll_WithInvalidDimensionId(string dimensionId)
         {
-            this.Url = string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlDimensionElementsPath")}", dimensionId);
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, 0);
+            Url = string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlDimensionElementsPath")}", dimensionId);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, 0);
 
             Assert.False(result.IsSuccess, result.Message);
         }
@@ -54,7 +55,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v1
         [InlineData(TokenRoleType.UserWithFakeRole)]
         public async Task Fail_GetAll_WithInvalidTokenType(TokenRoleType tokenRoleType)
         {
-            var result = await this.ExecuteGet(tokenRoleType, 0);
+            var result = await ExecuteGet(tokenRoleType, 0);
 
             Assert.False(result.IsSuccess, result.Message);
         }
@@ -76,8 +77,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v1
 
             // Количество получаемых элементов при тестировании метода (принадлежат измерению "Измерение для тестирования получения элементов")
             var elementsCountInDimension = 1005;
-            var elementsCount = getAll ? elementsCountInDimension : int.Parse(this.config.GetValue("DefaultEntitiesCount"));
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, elementsCount, parameters);
+            var elementsCount = getAll ? elementsCountInDimension : int.Parse(config.GetValue("DefaultEntitiesCount"));
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, elementsCount, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -96,7 +97,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v1
                     { Parameters.Limit, limit }
             };
 
-            var result = await this.ExecuteGet(TokenRoleType.UserAdmin, limit, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserAdmin, limit, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -120,11 +121,11 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v1
             var elementsCountInDimension = 1005;
 
             var elementsCount = skip == TestValues.ZeroValue
-                ? int.Parse(this.config.GetValue("DefaultEntitiesCount"))
-                : (elementsCountInDimension - skip > int.Parse(this.config.GetValue("DefaultEntitiesCount"))
-                   ? int.Parse(this.config.GetValue("DefaultEntitiesCount")) : elementsCountInDimension - skip);
+                ? int.Parse(config.GetValue("DefaultEntitiesCount"))
+                : elementsCountInDimension - skip > int.Parse(config.GetValue("DefaultEntitiesCount"))
+                   ? int.Parse(config.GetValue("DefaultEntitiesCount")) : elementsCountInDimension - skip;
 
-            var result = await this.ExecuteGet(TokenRoleType.UserAdmin, elementsCount, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserAdmin, elementsCount, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -145,19 +146,19 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v1
                     { Parameters.Limit, limit }
             };
 
-            var result = await this.ExecuteGet(TokenRoleType.UserAdmin, limit, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserAdmin, limit, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
 
         protected override string GetSearchUrl(string dimensionId)
         {
-            return string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlDimensionElementsSearchPath")}", dimensionId);
+            return string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlDimensionElementsSearchPath")}", dimensionId);
         }
 
         protected override string GetUrl(string dimensionId)
         {
-            return string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlDimensionElementsPath")}", dimensionId);
+            return string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlDimensionElementsPath")}", dimensionId);
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Models.Dimensions.Folders;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
+namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
 {
     /// <summary>
     /// Класс тестирования метода получения папок измерения
@@ -26,7 +26,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
         public FoldersTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService)
         {
-            this.Url = this.GetUrl(dimensionId);
+            Url = GetUrl(dimensionId);
         }
 
         /// <summary>
@@ -38,8 +38,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
         [InlineData(null)]
         public async Task GetAll_WithInvalidDimensionId(string dimensionId)
         {
-            this.Url =this.GetUrl(dimensionId);
-            var result = await this.ExecuteGet(TokenRoleType.UserAdmin, 0);
+            Url = GetUrl(dimensionId);
+            var result = await ExecuteGet(TokenRoleType.UserAdmin, 0);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -53,7 +53,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
         [InlineData(TokenRoleType.UserWithFakeRole)]
         public async Task GetAll_WithInvalidTokenType(TokenRoleType tokenRoleType)
         {
-            var result = await this.ExecuteGet(tokenRoleType, 0);
+            var result = await ExecuteGet(tokenRoleType, 0);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -65,7 +65,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
         [Fact]
         public async Task GetAll_WithoutParameters()
         {
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, int.Parse(this.config.GetValue("DefaultEntitiesCount")));
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, int.Parse(config.GetValue("DefaultEntitiesCount")));
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -87,9 +87,9 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
 
             // Количество получаемых каталогов при тестировании метода ApiUrlGetDimensionFoldersPath(принадлежат измерению "Измерение для тестирования получения папок") 
             var foldersCountInDimension = 2002;
-            var foldersCount = getAll ? foldersCountInDimension : int.Parse(this.config.GetValue("DefaultEntitiesCount"));
+            var foldersCount = getAll ? foldersCountInDimension : int.Parse(config.GetValue("DefaultEntitiesCount"));
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, foldersCount, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, foldersCount, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -108,7 +108,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
                     { Parameters.Limit, limit }
             };
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, limit, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, limit, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -132,11 +132,11 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
             var foldersCountInDimension = 2002;
 
             var foldersCount = skip == TestValues.ZeroValue
-                ? int.Parse(this.config.GetValue("DefaultEntitiesCount"))
-                : (foldersCountInDimension - skip > int.Parse(this.config.GetValue("DefaultEntitiesCount")) 
-                   ? int.Parse(this.config.GetValue("DefaultEntitiesCount")) : foldersCountInDimension - skip) ;
+                ? int.Parse(config.GetValue("DefaultEntitiesCount"))
+                : foldersCountInDimension - skip > int.Parse(config.GetValue("DefaultEntitiesCount"))
+                   ? int.Parse(config.GetValue("DefaultEntitiesCount")) : foldersCountInDimension - skip;
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, foldersCount, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, foldersCount, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -157,7 +157,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
                     { Parameters.Limit, limit }
             };
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, limit, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, limit, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -169,7 +169,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Get.v2
 
         protected override string GetUrl(string dimensionId)
         {
-            return string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlGetDimensionFoldersPath")}", dimensionId);
+            return string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlGetDimensionFoldersPath")}", dimensionId);
         }
     }
 }

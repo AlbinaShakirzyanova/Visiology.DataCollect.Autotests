@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities.Configuration;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 
 

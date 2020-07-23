@@ -2,15 +2,15 @@
 using RestSharp;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
-using Visiology.DataCollect.Integration.Tests.Infrastructure;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities.RequestBody.Filters.Dimensions;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Models.Dimensions.Elements;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
+namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v1
 {
     /// <summary>
     /// Класс тестирования метода обновления элементов измерения
@@ -43,7 +43,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
         public ElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService, new DimensionElementsVerifier())
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
         }
 
         /// <summary>
@@ -57,14 +57,14 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
         [InlineData(null)]
         public async Task DeleteAll_WithInvalidDimensionId(string dimensionId)
         {
-            this.Url = this.GetUrl(dimensionId);
+            Url = GetUrl(dimensionId);
 
             var expectedResult = new DeleteResult
             {
                 deleted = 0
             };
 
-            var result = await this.ExecuteDelete(TokenRoleType.UserWithRole, expectedResult);
+            var result = await ExecuteDelete(TokenRoleType.UserWithRole, expectedResult);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -82,7 +82,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 0,
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult);
+            var result = await ExecuteDelete(token, expectedResult);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -95,20 +95,20 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task DeleteAll_WithoutBody(TokenRoleType token)
         {
-            this.Url = this.GetUrl(dimensionForDeleteAllId);
+            Url = GetUrl(dimensionForDeleteAllId);
 
             var expectedResult = new DeleteResult
             {
                 deleted = 16
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult);
+            var result = await ExecuteDelete(token, expectedResult);
 
             if (result.IsSuccess)
             {
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionForDeleteAllId), token, null, this.Headers);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionForDeleteAllId), token, null, Headers);
 
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -139,13 +139,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, deletedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, deletedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -176,14 +176,14 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
 
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -214,13 +214,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -237,7 +237,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithoutDelete(TokenRoleType token)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -253,13 +253,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 0
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -276,7 +276,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
         [InlineData(TokenRoleType.UserAdmin)]
         public async Task Delete_ForUnchangedElement(TokenRoleType token)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -292,7 +292,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 0
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -305,7 +305,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
         [InlineData(TokenRoleType.UserWithRole)]
         public async Task Delete_WithSimpleIdFilter(TokenRoleType token)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -321,13 +321,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
@@ -359,13 +359,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
@@ -398,13 +398,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 3
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
@@ -437,13 +437,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -475,13 +475,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -513,13 +513,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -551,13 +551,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -589,13 +589,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -627,13 +627,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -665,13 +665,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -717,13 +717,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 1
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;
@@ -769,13 +769,13 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Delete.v1
                 deleted = 2
             };
 
-            var result = await this.ExecuteDelete(token, expectedResult, null, bodyContent);
+            var result = await ExecuteDelete(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 var expectedElementsInfo = new List<ElementDto>();
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, bodyContent);
-                var deleteVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, bodyContent);
+                var deleteVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = deleteVerificationResult.IsSuccess;
                 result.Message += deleteVerificationResult.Message;

@@ -1,18 +1,14 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
-using Visiology.DataCollect.Integration.Tests.Infrastructure;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Models.Dimensions.Elements;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
+namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
 {
     /// <summary>
     /// Класс тестирования элементов измерения с неуникальными наименованиями
@@ -44,7 +40,7 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
         public NotUniqueElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService, new DimensionElementsVerifier())
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
         }
 
         /// <summary>
@@ -74,13 +70,13 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
                 Added = 0
             };
 
-            var result = await this.ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
 
             var errorMessage = "Список элементов содержит повторяющиеся значения. Данные не сохранены.";
 
             var isSuccess = !result.IsSuccess && result.Message.Contains(errorMessage);
 
-            Assert.True(isSuccess, result.Message); 
+            Assert.True(isSuccess, result.Message);
         }
 
         /// <summary>
@@ -119,13 +115,13 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
                 Added = 0
             };
 
-            var result = await this.ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
 
             var errorMessage = "Список элементов содержит повторяющиеся значения. Данные не сохранены.";
 
             var isSuccess = !result.IsSuccess && result.Message.Contains(errorMessage);
 
-            Assert.True(isSuccess, result.Message); 
+            Assert.True(isSuccess, result.Message);
         }
 
         /// <summary>
@@ -165,7 +161,7 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
                 Added = 2
             };
 
-            var result = await this.ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -204,7 +200,7 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
                 Added = 2
             };
 
-            var result = await this.ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -246,7 +242,7 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
                 Added = 2
             };
 
-            var result = await this.ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -288,7 +284,7 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
                 Added = 2
             };
 
-            var result = await this.ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -330,7 +326,7 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
                 Added = 2
             };
 
-            var result = await this.ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -372,7 +368,7 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
                 Added = 2
             };
 
-            var result = await this.ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -416,7 +412,7 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
                 Added = 2
             };
 
-            var result = await this.ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -455,7 +451,7 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
                 Added = 2
             };
 
-            var result = await this.ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -497,7 +493,7 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
                 Added = 2
             };
 
-            var result = await this.ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -539,11 +535,11 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Post.v2
                 Added = 2
             };
 
-            var result = await this.ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(tokenRoleType, expectedResult, null, bodyContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
-    }  
+    }
 }
 
 

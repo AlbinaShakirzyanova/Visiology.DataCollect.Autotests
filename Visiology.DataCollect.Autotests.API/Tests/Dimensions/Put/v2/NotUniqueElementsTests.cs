@@ -1,12 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
-using Visiology.DataCollect.Integration.Tests.Infrastructure;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities.Fields;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities.RequestBody.Fields;
@@ -14,7 +9,7 @@ using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Models.Dimensions.Elements;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Put.v2
+namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v2
 {
     /// <summary>
     /// Класс тестирования метода обновления элементов с неуникальными наименованиями
@@ -46,7 +41,7 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Put.v2
         public NotUniqueElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService, new DimensionElementsVerifier())
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
         }
 
         /// <summary>
@@ -76,7 +71,7 @@ namespace Visiology.DataCollect.Integration.Tests.Tests.Dimensions.Put.v2
                 notChanged = 4
             };
 
-            var result = await this.ExecutePut(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecutePut(tokenRoleType, expectedResult, null, bodyContent);
 
             var errorMessage = "Элемент с наименованием \\\"Element 1\\\" уже существует. Данные не сохранены.";
 

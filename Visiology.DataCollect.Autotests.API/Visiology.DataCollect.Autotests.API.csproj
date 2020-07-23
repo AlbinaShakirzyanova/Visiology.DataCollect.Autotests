@@ -1,9 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,12 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Dumps\MeasureGroups\Attributes\" />
     <Folder Include="Tests\MeasureGroups\Delete\" />
     <Folder Include="Tests\MeasureGroups\Put\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Visiology.DataCollect.Autotests.Infrastructure\Visiology.DataCollect.Autotests.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿using Visiology.DataCollect.Autotests.Entities.Results;
+﻿using Visiology.DataCollect.Autotests.API.Infrastructure.Entities.Results;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Interfaces;
 
 namespace Visiology.DataCollect.Integration.Tests.Models

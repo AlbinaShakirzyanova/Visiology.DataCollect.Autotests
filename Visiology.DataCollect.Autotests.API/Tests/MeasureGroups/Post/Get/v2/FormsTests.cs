@@ -1,14 +1,12 @@
-﻿using System.Configuration;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
-using Visiology.DataCollect.Integration.Tests.Infrastructure;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Forms;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
+namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v2
 {
     /// <summary>
     /// Класс тестирования метода получения форм группы показателей
@@ -39,7 +37,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         public FormsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService)
         {
-            this.Url = this.GetUrl(measureGroupId);
+            Url = GetUrl(measureGroupId);
         }
 
         /// <summary>
@@ -51,8 +49,8 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         [InlineData(null)]
         public async Task Get_WithInvalidMgId(int? mgId)
         {
-            this.Url = string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlGetMeasureGroupFormsPath")}", mgId);
-            var result = await this.ExecuteGet(TokenRoleType.UserAdmin, 0);
+            Url = string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlGetMeasureGroupFormsPath")}", mgId);
+            var result = await ExecuteGet(TokenRoleType.UserAdmin, 0);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -66,9 +64,9 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         {
             using (var client = new HttpClient())
             {
-                var requestMessage = new HttpRequestMessage(HttpMethod.Get, this.Url);
+                var requestMessage = new HttpRequestMessage(HttpMethod.Get, Url);
 
-                requestMessage.Headers.Add("X-API-VERSION", this.XApiVersion);
+                requestMessage.Headers.Add("X-API-VERSION", XApiVersion);
 
                 var response = await client.SendAsync(requestMessage);
                 var responseContent = await response.Content.ReadAsStringAsync();
@@ -84,7 +82,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         [Fact]
         public async Task GetAll_ForAdminUser()
         {
-            var result = await this.ExecuteGet(TokenRoleType.UserAdmin, adminUserFormsCount);
+            var result = await ExecuteGet(TokenRoleType.UserAdmin, adminUserFormsCount);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -96,7 +94,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         [Fact]
         public async Task GetAll_ForUser()
         {
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, userFormsCount);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, userFormsCount);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -104,7 +102,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
 
         protected override string GetUrl(string entityId)
         {
-            return string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlGetMeasureGroupFormsPath")}", entityId);
+            return string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlGetMeasureGroupFormsPath")}", entityId);
         }
 
         protected override string GetSearchUrl(string dimensionId)

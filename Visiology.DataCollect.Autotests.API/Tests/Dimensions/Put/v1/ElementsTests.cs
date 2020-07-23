@@ -2,18 +2,17 @@
 using RestSharp;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
-using Visiology.DataCollect.Integration.Tests.Infrastructure;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities.Fields;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities.RequestBody.Fields;
-using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities.RequestBody.Filters;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities.RequestBody.Filters.Dimensions;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Models.Dimensions.Elements;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
+namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Put.v1
 {
     /// <summary>
     /// Класс тестирования метода обновления элементов измерения
@@ -64,7 +63,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         public ElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService, new DimensionElementsVerifier())
         {
-            this.Url = this.GetUrl(adminDimensionId);
+            Url = GetUrl(adminDimensionId);
         }
 
         /// <summary>
@@ -78,7 +77,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [InlineData(null)]
         public async Task Update_WithInvalidDimensionId(string dimensionId)
         {
-            this.Url = this.GetUrl(dimensionId);
+            Url = GetUrl(dimensionId);
 
             var body = new[]
             {
@@ -110,7 +109,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserAdmin, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserAdmin, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -123,7 +122,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithoutPermissionToDimension()
         {
-            this.Url = this.GetUrl(adminDimensionId);
+            Url = GetUrl(adminDimensionId);
 
             var body = new[]
             {
@@ -155,7 +154,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -172,7 +171,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [InlineData(TokenRoleType.UserWithRole, userDimensionId)]
         public async Task UpdateAll_WithoutBody(TokenRoleType tokenRoleType, string dimensionId)
         {
-            this.Url = this.GetUrl(dimensionId);
+            Url = GetUrl(dimensionId);
 
             var expectedResult = new UpdateResult
             {
@@ -181,7 +180,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(tokenRoleType, expectedResult);
+            var result = await ExecutePut(tokenRoleType, expectedResult);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -199,7 +198,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         {
             // В дампе "Тестовое измерение для обновления имени всех элементов Fail"
             var dimensionId = "21";
-            this.Url = this.GetUrl(dimensionId);
+            Url = GetUrl(dimensionId);
 
             var body = new[]
             {
@@ -225,7 +224,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(tokenRoleType, expectedResult, null, bodyContent);
+            var result = await ExecutePut(tokenRoleType, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -241,7 +240,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
             var dimensionId = "20";
             var testValue = "Тест обновления имени всех элементов пользователем с ролью Администратор";
 
-            this.Url = this.GetUrl(dimensionId);
+            Url = GetUrl(dimensionId);
 
             var body = new[]
             {
@@ -267,12 +266,12 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserAdmin, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserAdmin, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 // Получаем по фильтру искомые элементы
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserAdmin, null, this.Headers);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserAdmin, null, Headers);
 
                 result.IsSuccess = result.IsSuccess && elementsContent.ContentVerificationResult.IsSuccess;
                 result.Message += elementsContent.ContentVerificationResult.Message;
@@ -303,7 +302,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
             var dimensionId = "22";
             var testValue = "Тест обновления имени всех элементов пользователем с ролью";
 
-            this.Url = this.GetUrl(dimensionId);
+            Url = GetUrl(dimensionId);
 
             var body = new[]
             {
@@ -329,12 +328,12 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserAdmin, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserAdmin, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
                 // Получаем по фильтру искомые элементы
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers);
 
                 result.IsSuccess = result.IsSuccess && elementsContent.ContentVerificationResult.IsSuccess;
                 result.Message += elementsContent.ContentVerificationResult.Message;
@@ -362,7 +361,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         public async Task Update_WithSimpleNameField_ForLastLevel()
         {
             var testValue = "Тест обновления наименования элемента на конечном уровне";
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -390,7 +389,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -425,8 +424,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -443,7 +442,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         public async Task Update_WithSimpleNameField_ForLevel()
         {
             var testValue = "Тест обновления наименования элемента на уровне";
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -471,7 +470,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -505,8 +504,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -523,7 +522,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         public async Task Update_WithSimpleNameField_ForRoot()
         {
             var testValue = "Тест обновления наименования элемента в корне";
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -551,7 +550,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -582,8 +581,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -600,7 +599,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedLevelField_FromRootToExistFoldersHierarchy()
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -626,7 +625,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -655,8 +654,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -673,7 +672,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedLevelField_FromRootToPartiallyExistFoldersHierarchy()
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -710,7 +709,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -739,8 +738,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -757,7 +756,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedLevelField_FromRootToNotExistFoldersHierarchy()
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -792,7 +791,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -821,8 +820,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -839,7 +838,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedLevelField_FromExistFoldersHierarchyToPartiallyExistFoldersHierarchy()
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -876,7 +875,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -905,8 +904,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -923,7 +922,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedLevelField_FromExistFoldersHierarchyToExistFoldersHierarchy()
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -958,7 +957,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -987,8 +986,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -1005,7 +1004,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task UpdateElementName_WithNamedLevelField()
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -1034,7 +1033,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -1069,8 +1068,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -1091,7 +1090,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [InlineData(TestValues.StringValueConvertibleToInt)]
         public async Task UpdateAll_NamedAttributeField_ForIntAttribute(object attributeValue)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -1120,7 +1119,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -1149,8 +1148,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -1169,7 +1168,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [InlineData(TestValues.StringValue)]
         public async Task UpdateAll_NamedAttributeField_ForInvalidIntAttribute(object attributeValue)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -1198,7 +1197,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -1214,7 +1213,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [InlineData(TestValues.FloatValue)]
         public async Task UpdateAll_NamedAttributeField_ForFloatAttribute(object attributeValue)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -1243,7 +1242,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -1272,8 +1271,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -1291,7 +1290,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [InlineData(TestValues.StringValue)]
         public async Task UpdateAll_NamedAttributeField_ForInvalidFloatAttribute(object attributeValue)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -1320,7 +1319,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -1336,7 +1335,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [InlineData(null)]
         public async Task UpdateAll_NamedAttributeField_ForStringAttribute(object attributeValue)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -1365,7 +1364,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -1394,8 +1393,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -1414,7 +1413,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [InlineData(null)]
         public async Task UpdateAll_NamedAttributeField_ForDateAttribute(object attributeValue)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -1443,7 +1442,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -1472,8 +1471,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -1492,7 +1491,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [InlineData(TestValues.StringValue)]
         public async Task UpdateAll_NamedAttributeField_ForInvalidDateAttribute(object attributeValue)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -1521,7 +1520,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -1538,7 +1537,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [InlineData(4)]
         public async Task UpdateAll_NamedAttributeField_ForLinkAttribute(object attributeValue)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -1567,7 +1566,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -1596,8 +1595,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -1617,7 +1616,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [InlineData(TestValues.ZeroId)]
         public async Task UpdateAll_NamedAttributeField_ForInvalidLinkAttribute(object attributeValue)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -1646,7 +1645,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -1662,7 +1661,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [InlineData(null)]
         public async Task UpdateAll_NamedAttributeField_ForTextAttribute(object attributeValue)
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -1691,7 +1690,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -1720,8 +1719,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -1737,7 +1736,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_NamedAttributeField_ForAllAttribute()
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -1796,7 +1795,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -1825,8 +1824,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -1842,7 +1841,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithoutChanges()
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
 
             var testValue = "Элемент для обновления без изменений";
 
@@ -1873,7 +1872,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 1
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -1902,8 +1901,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -1919,7 +1918,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithRestricted()
         {
-            this.Url = this.GetUrl(restrictedElementsDimensionId);
+            Url = GetUrl(restrictedElementsDimensionId);
 
             var fields = new[]
             {
@@ -1941,7 +1940,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 3
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1953,7 +1952,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithInvalidLinkAttributePermissions()
         {
-            this.Url = this.GetUrl(forLinkAttributeDimensionId);
+            Url = GetUrl(forLinkAttributeDimensionId);
 
             var fields = new[]
             {
@@ -1975,7 +1974,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -1987,7 +1986,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithSimpleIdFilter()
         {
-            this.Url = this.GetUrl(forFiltersDimensionId);
+            Url = GetUrl(forFiltersDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -2018,7 +2017,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -2047,8 +2046,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -2064,7 +2063,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithSimpleNameFilter()
         {
-            this.Url = this.GetUrl(forFiltersDimensionId);
+            Url = GetUrl(forFiltersDimensionId);
 
             var filter = new SimpleFilter
             {
@@ -2094,7 +2093,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -2123,8 +2122,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -2140,7 +2139,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedLevelFilter()
         {
-            this.Url = this.GetUrl(forFiltersDimensionId);
+            Url = GetUrl(forFiltersDimensionId);
 
             var filter = new NamedFilter
             {
@@ -2171,7 +2170,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -2238,8 +2237,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -2255,7 +2254,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedLevelFilterForLastLevel()
         {
-            this.Url = this.GetUrl(forFiltersDimensionId);
+            Url = GetUrl(forFiltersDimensionId);
 
             var filter = new NamedFilter
             {
@@ -2286,7 +2285,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -2315,8 +2314,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -2332,7 +2331,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedAttributeFilter_ForIntAttribute()
         {
-            this.Url = this.GetUrl(forFiltersDimensionId);
+            Url = GetUrl(forFiltersDimensionId);
 
             var filter = new NamedFilter
             {
@@ -2368,7 +2367,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -2397,8 +2396,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -2414,7 +2413,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedAttributeFilter_ForStringAttribute()
         {
-            this.Url = this.GetUrl(forFiltersDimensionId);
+            Url = GetUrl(forFiltersDimensionId);
 
             var filter = new NamedFilter
             {
@@ -2450,7 +2449,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -2479,8 +2478,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -2496,7 +2495,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedAttributeFilter_ForFloatAttribute()
         {
-            this.Url = this.GetUrl(forFiltersDimensionId);
+            Url = GetUrl(forFiltersDimensionId);
 
             var filter = new NamedFilter
             {
@@ -2532,7 +2531,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -2561,8 +2560,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -2578,7 +2577,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedAttributeFilter_ForDateAttribute()
         {
-            this.Url = this.GetUrl(forFiltersDimensionId);
+            Url = GetUrl(forFiltersDimensionId);
 
             var filter = new NamedFilter
             {
@@ -2614,7 +2613,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -2643,8 +2642,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -2660,7 +2659,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedAttributeFilter_ForLinkAttribute()
         {
-            this.Url = this.GetUrl(forFiltersDimensionId);
+            Url = GetUrl(forFiltersDimensionId);
 
             var filter = new NamedFilter
             {
@@ -2696,7 +2695,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -2725,8 +2724,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -2742,7 +2741,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithNamedAttributeFilter_ForTextAttribute()
         {
-            this.Url = this.GetUrl(forFiltersDimensionId);
+            Url = GetUrl(forFiltersDimensionId);
 
             var filter = new NamedFilter
             {
@@ -2778,7 +2777,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -2807,8 +2806,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -2824,7 +2823,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Update_WithComplexAndFilter()
         {
-            this.Url = this.GetUrl(forFiltersDimensionId);
+            Url = GetUrl(forFiltersDimensionId);
 
             var filter = new
             {
@@ -2874,7 +2873,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -2903,8 +2902,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;
@@ -2920,7 +2919,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
         [Fact]
         public async Task Success_Update_WithComplexOrFilter()
         {
-            this.Url = this.GetUrl(forFiltersDimensionId);
+            Url = GetUrl(forFiltersDimensionId);
 
             var filter = new
             {
@@ -2976,7 +2975,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                 notChanged = 0
             };
 
-            var result = await this.ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
+            var result = await ExecutePut(TokenRoleType.UserWithRole, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -3024,8 +3023,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Put.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-                var updateVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(forFiltersDimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+                var updateVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = updateVerificationResult.IsSuccess;
                 result.Message += updateVerificationResult.Message;

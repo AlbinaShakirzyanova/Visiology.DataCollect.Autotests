@@ -1,17 +1,17 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
+using Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
-using Visiology.DataCollect.Integration.Tests.Dimensions.Get;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities.RequestBody.Filters.Dimensions;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Models.Dimensions.Elements;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
+namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
 {
     /// <summary>
     /// Класс тестирования метода писка элементов измерения
@@ -38,7 +38,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
         public SearchElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService, new DimensionElementsVerifier())
         {
-            this.Url = this.GetUrl(dimensionId);
+            Url = GetUrl(dimensionId);
         }
 
         /// <summary>
@@ -50,8 +50,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
         [InlineData(TokenRoleType.UserAdmin, null)]
         public async Task GetAll_WithInvalidDimensionId(TokenRoleType token, string dimensionId)
         {
-            this.Url = this.GetUrl(dimensionId);
-            var result = await this.ExecuteGet(token, 0);
+            Url = GetUrl(dimensionId);
+            var result = await ExecuteGet(token, 0);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -65,7 +65,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
         [InlineData(TokenRoleType.UserWithFakeRole)]
         public async Task GetAll_WithInvalidTokenType(TokenRoleType token)
         {
-            var result = await this.ExecuteGet(token, 0);
+            var result = await ExecuteGet(token, 0);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -88,7 +88,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
             // Количество элементов в измерении "Тестовое измерение для тестирования фильтров получения элементов"
             var elementsCountInDimension = 16;
 
-            var result = await this.ExecuteGet(token, elementsCountInDimension, parameters);
+            var result = await ExecuteGet(token, elementsCountInDimension, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -99,12 +99,12 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
         /// <returns>Ожидаемый результат - положительный</returns>
         [Theory]
         [InlineData(TokenRoleType.UserWithRole)]
-        public async Task GetAll_WithoutBody(TokenRoleType token) 
+        public async Task GetAll_WithoutBody(TokenRoleType token)
         {
             // Количество элементов в измерении "Тестовое измерение для тестирования фильтров получения элементов"
             var elementsCountInDimension = 16;
 
-            var result = await this.ExecuteGet(token, elementsCountInDimension);
+            var result = await ExecuteGet(token, elementsCountInDimension);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -123,7 +123,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     { Parameters.Limit, limit }
             };
 
-            var result = await this.ExecuteGet(token, limit, parameters);
+            var result = await ExecuteGet(token, limit, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -148,7 +148,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
             var elementsCountInDimension = 16;
             var elementsCount = skip > elementsCountInDimension ? 0 : elementsCountInDimension - skip;
 
-            var result = await this.ExecuteGet(token, elementsCount, parameters);
+            var result = await ExecuteGet(token, elementsCount, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -193,8 +193,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), token, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), token, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -238,8 +238,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -322,8 +322,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -367,8 +367,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -414,8 +414,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -518,8 +518,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -565,8 +565,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -631,8 +631,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
             };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -716,8 +716,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
             };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -820,8 +820,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -844,8 +844,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(filter));
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -871,8 +871,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(filter));
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -898,7 +898,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
             // Количество элементов  с ззначением Null по атрибуту типа Int в измерении "Тестовое измерение для тестирования фильтров получения элементов"
             var elementsCountInDimension = 9;
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, elementsCountInDimension, null, filterContent);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, elementsCountInDimension, null, filterContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -926,8 +926,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(filter));
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
 
             Assert.False(result.IsSuccess, result.Message);
         }
@@ -1011,8 +1011,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1058,8 +1058,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1085,7 +1085,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
             // Количество элементов с значением Null по атрибуту типа string в измерении "Тестовое измерение для тестирования фильтров получения элементов"
             var elementsCountInDimension = 9;
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, elementsCountInDimension, null, filterContent);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, elementsCountInDimension, null, filterContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1188,8 +1188,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1235,8 +1235,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1377,8 +1377,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
             };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1462,8 +1462,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1509,8 +1509,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
             };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1613,8 +1613,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
             };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1717,8 +1717,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1741,8 +1741,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(filter));
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -1767,8 +1767,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(filter));
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -1794,7 +1794,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
             // Количество элементов  с ззначением Null по атрибуту типа Float в измерении "Тестовое измерение для тестирования фильтров получения элементов"
             var elementsCountInDimension = 9;
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, elementsCountInDimension, null, filterContent);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, elementsCountInDimension, null, filterContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1840,8 +1840,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -1963,8 +1963,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
             };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -2048,8 +2048,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -2095,8 +2095,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
             };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -2142,8 +2142,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
             };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -2284,8 +2284,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -2308,8 +2308,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(filter));
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -2336,8 +2336,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(filter));
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -2363,7 +2363,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
             // Количество элементов  с ззначением Null по атрибуту типа Date в измерении "Тестовое измерение для тестирования фильтров получения элементов"
             var elementsCountInDimension = 7;
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, elementsCountInDimension, null, filterContent);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, elementsCountInDimension, null, filterContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -2428,8 +2428,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -2494,8 +2494,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
             };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -2520,8 +2520,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
 
             var expectedElementsInfo = new List<ElementDto>();
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -2662,8 +2662,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
             };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -2804,8 +2804,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
             };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -2870,8 +2870,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -2894,8 +2894,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(filter));
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -2923,8 +2923,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(filter));
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -2952,8 +2952,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(filter));
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, new List<ElementDto>());
             Assert.True(!result.IsSuccess, result.Message);
         }
 
@@ -3093,8 +3093,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -3140,8 +3140,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -3167,7 +3167,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
             // Количество элементов с значением Null по атрибуту типа text в измерении "Тестовое измерение для тестирования фильтров получения элементов"
             var elementsCountInDimension = 10;
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, elementsCountInDimension, null, filterContent);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, elementsCountInDimension, null, filterContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -3289,8 +3289,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -3349,8 +3349,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -3429,8 +3429,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
                     }
                 };
 
-            var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, this.Headers, filterContent);
-            var result = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+            var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(dimensionId), TokenRoleType.UserWithRole, null, Headers, filterContent);
+            var result = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -3456,19 +3456,19 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v2
             // Количество элементов  с значением Null по атрибуту типа Link в измерении "Тестовое измерение для тестирования фильтров получения элементов"
             var elementsCountInDimension = 8;
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, elementsCountInDimension, null, filterContent);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, elementsCountInDimension, null, filterContent);
 
             Assert.True(result.IsSuccess, result.Message);
         }
 
         protected override string GetUrl(string dimensionId)
         {
-            return string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlDimensionElementsSearchPath")}", dimensionId);
+            return string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlDimensionElementsSearchPath")}", dimensionId);
         }
 
         protected override string GetSearchUrl(string dimensionId)
         {
-            return string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlDimensionElementsSearchPath")}", dimensionId);
+            return string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlDimensionElementsSearchPath")}", dimensionId);
         }
     }
 }

@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Visiology.DataCollect.Integration.Tests.Infrastructure;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Interfaces;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get
+namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get
 {
     /// <summary>
     /// Абстрактный класс базовых тестов для Get-методов
@@ -30,9 +29,9 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get
         {
             using (var client = new HttpClient())
             {
-                var requestMessage = new HttpRequestMessage(HttpMethod.Get, this.Url);
+                var requestMessage = new HttpRequestMessage(HttpMethod.Get, Url);
 
-                requestMessage.Headers.Add("X-API-VERSION", this.XApiVersion);
+                requestMessage.Headers.Add("X-API-VERSION", XApiVersion);
 
                 var response = await client.SendAsync(requestMessage);
                 var responseContent = await response.Content.ReadAsStringAsync();
@@ -55,7 +54,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get
                     { Parameters.GetAll, getAll }
             };
 
-            var content = await this.TryGetEntities(this.Method, this.Url, TokenRoleType.UserAdmin, parameters);
+            var content = await TryGetEntities(Method, Url, TokenRoleType.UserAdmin, parameters);
             var isTestSuccess = content.ContentVerificationResult.IsSuccess;
             var userMessage = content.ContentVerificationResult.Message;
 
@@ -78,7 +77,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get
                     { Parameters.Limit, limit }
             };
 
-            var content = await this.TryGetEntities(this.Method, this.Url, TokenRoleType.UserAdmin, parameters);
+            var content = await TryGetEntities(Method, Url, TokenRoleType.UserAdmin, parameters);
             var isTestSuccess = content.ContentVerificationResult.IsSuccess;
             var userMessage = content.ContentVerificationResult.Message;
 
@@ -100,7 +99,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get
                     { Parameters.Skip, skip }
             };
 
-            var content = await this.TryGetEntities(this.Method, this.Url, TokenRoleType.UserAdmin, parameters);
+            var content = await TryGetEntities(Method, Url, TokenRoleType.UserAdmin, parameters);
             var isTestSuccess = content.ContentVerificationResult.IsSuccess;
             var userMessage = content.ContentVerificationResult.Message;
 
@@ -124,7 +123,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get
                     { Parameters.GetAll, getAll }
             };
 
-            var content = await this.TryGetEntities(this.Method, this.Url, TokenRoleType.UserAdmin, parameters);
+            var content = await TryGetEntities(Method, Url, TokenRoleType.UserAdmin, parameters);
             var isTestSuccess = content.ContentVerificationResult.IsSuccess;
             var userMessage = content.ContentVerificationResult.Message;
 
@@ -148,7 +147,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get
                     { Parameters.GetAll, getAll }
             };
 
-            var content = await this.TryGetEntities(this.Method, this.Url, TokenRoleType.UserAdmin, parameters);
+            var content = await TryGetEntities(Method, Url, TokenRoleType.UserAdmin, parameters);
             var isTestSuccess = content.ContentVerificationResult.IsSuccess;
             var userMessage = content.ContentVerificationResult.Message;
 
@@ -174,7 +173,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get
                     { Parameters.Skip, skip }
             };
 
-            var content = await this.TryGetEntities(this.Method, this.Url, TokenRoleType.UserAdmin, parameters);
+            var content = await TryGetEntities(Method, Url, TokenRoleType.UserAdmin, parameters);
             var isTestSuccess = content.ContentVerificationResult.IsSuccess;
             var userMessage = content.ContentVerificationResult.Message;
 

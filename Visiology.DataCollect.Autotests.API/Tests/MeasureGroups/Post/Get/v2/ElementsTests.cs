@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Threading.Tasks;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
@@ -7,7 +6,8 @@ using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
+
+namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v2
 {
     [XApiVersion("2.0")]
     public class ElementsTests : BaseTests<ElementsListDto, ElementDto>
@@ -23,7 +23,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         public ElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService)
         {
-            this.Url = this.GetUrl(measureGroupId);
+            Url = GetUrl(measureGroupId);
         }
 
         /// <summary>
@@ -35,8 +35,8 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         [InlineData(null)]
         public async Task GetAll_WithInvalidMeasureGroupId(string measureGroupId)
         {
-            this.Url = this.GetUrl(measureGroupId);
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, 0);
+            Url = GetUrl(measureGroupId);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, 0);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -50,7 +50,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         [InlineData(TokenRoleType.UserWithFakeRole)]
         public async Task GetAll_WithInvalidTokenType(TokenRoleType tokenRoleType)
         {
-            var result = await this.ExecuteGet(tokenRoleType, 0);
+            var result = await ExecuteGet(tokenRoleType, 0);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -72,7 +72,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
 
             // Количество получаемых элементов при тестировании метода
             var elementsCount = 88;
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, elementsCount, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, elementsCount, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -83,7 +83,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         /// <param name="limit">Параметр limit</param>
         /// <returns>Ожидаемый результат - положительный</returns>
         [Theory]
-        [InlineData(TestValues.MoreThanZeroValue)]
+        [InlineData(Infrastructure.Entities.TestValues.MoreThanZeroValue)]
         public async Task GetAll_WithParamLimit(int limit)
         {
             var parameters = new Dictionary<string, object>
@@ -91,7 +91,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
                     { Parameters.Limit, limit }
             };
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, limit, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, limit, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -102,8 +102,8 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         /// <param name="skip">Параметр skip</param>
         /// <returns>Ожидаемый результат - положительный</returns>
         [Theory]
-        [InlineData(TestValues.ZeroValue)]
-        [InlineData(TestValues.MoreThanZeroValue)]
+        [InlineData(Infrastructure.Entities.TestValues.ZeroValue)]
+        [InlineData(Infrastructure.Entities.TestValues.MoreThanZeroValue)]
         public async Task GetAll_WithParamSkip(int skip)
         {
             var parameters = new Dictionary<string, object>
@@ -113,7 +113,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
 
             // Количество получаемых элементов при тестировании метода
             var elementsCount = 88 - skip;
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, elementsCount, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, elementsCount, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -125,7 +125,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         /// <param name="limit">Параметр limit</param>
         /// <returns>Ожидаемый результат - положительный</returns>
         [Theory]
-        [InlineData(TestValues.MoreThanZeroValue, TestValues.MoreThanZeroValue)]
+        [InlineData(Infrastructure.Entities.TestValues.MoreThanZeroValue, Infrastructure.Entities.TestValues.MoreThanZeroValue)]
         public async Task GetAll_WithParamsSkipAndLimit(int skip, int limit)
         {
             var parameters = new Dictionary<string, object>
@@ -134,19 +134,19 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
                     { Parameters.Limit, limit }
             };
 
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, limit, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, limit, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
 
         protected override string GetSearchUrl(string entityId)
         {
-            return string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlMeasureGroupElementsSearchPath")}", entityId);
+            return string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlMeasureGroupElementsSearchPath")}", entityId);
         }
 
         protected override string GetUrl(string entityId)
         {
-            return string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlMeasureGroupElementsPath")}", entityId);
+            return string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlMeasureGroupElementsPath")}", entityId);
         }
     }
 }

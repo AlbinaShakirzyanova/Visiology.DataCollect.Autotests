@@ -2,17 +2,16 @@
 using RestSharp;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Visiology.DataCollect.Autotests.Entities.Results;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities.Results;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
-using Visiology.DataCollect.Integration.Tests.Infrastructure;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities.RequestBody.Filters.Dimensions;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
-using Visiology.DataCollect.Integration.Tests.Models;
 using Visiology.DataCollect.Integration.Tests.Models.Dimensions.Elements;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
+namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
 {
     /// <summary>
     /// Класс тестирования метода создания элементов измерения
@@ -39,7 +38,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
         public ElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService, new DimensionElementsVerifier())
         {
-            this.Url = this.GetUrl(userDimensionId);
+            Url = GetUrl(userDimensionId);
         }
 
         /// <summary>
@@ -53,7 +52,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
         [InlineData(TokenRoleType.UserAdmin, null)]
         public async Task Create_WithInvalidDimensionId(TokenRoleType token, string dimensionId)
         {
-            this.Url = this.GetUrl(dimensionId);
+            Url = GetUrl(dimensionId);
 
             var body = new[]
             {
@@ -71,7 +70,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 0
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -100,7 +99,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 0
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -130,7 +129,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 1
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -164,8 +163,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, filterContent);
-                var createVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, filterContent);
+                var createVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = createVerificationResult.IsSuccess;
                 result.Message += createVerificationResult.Message;
@@ -199,7 +198,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 1
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -232,8 +231,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, filterContent);
-                var createVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, filterContent);
+                var createVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = createVerificationResult.IsSuccess;
                 result.Message += createVerificationResult.Message;
@@ -267,7 +266,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 1
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -297,8 +296,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, filterContent);
-                var createVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, filterContent);
+                var createVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = createVerificationResult.IsSuccess;
                 result.Message += createVerificationResult.Message;
@@ -333,7 +332,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 1
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -363,8 +362,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, filterContent);
-                var createVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, filterContent);
+                var createVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = createVerificationResult.IsSuccess;
                 result.Message += createVerificationResult.Message;
@@ -399,7 +398,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 0
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -429,7 +428,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 0
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -460,7 +459,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 1
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -494,8 +493,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, filterContent);
-                var createVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, filterContent);
+                var createVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = createVerificationResult.IsSuccess;
                 result.Message += createVerificationResult.Message;
@@ -518,7 +517,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 IsSuccess = false
             };
 
-            var supportingElementResult = await this.ExecuteCreate(
+            var supportingElementResult = await ExecuteCreate(
                 token,
                 new CreateResult { Added = 1 },
                 null,
@@ -549,7 +548,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                     Added = 1
                 };
 
-                result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+                result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
                 if (result.IsSuccess)
                 {
@@ -579,8 +578,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                     }
                 };
 
-                    var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, filterContent);
-                    var createVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                    var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, filterContent);
+                    var createVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                     result.IsSuccess = createVerificationResult.IsSuccess;
                     result.Message += createVerificationResult.Message;
@@ -619,7 +618,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 1
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -652,8 +651,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, filterContent);
-                var createVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, filterContent);
+                var createVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = createVerificationResult.IsSuccess;
                 result.Message += createVerificationResult.Message;
@@ -696,7 +695,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 1
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -726,8 +725,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, filterContent);
-                var createVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, filterContent);
+                var createVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = createVerificationResult.IsSuccess;
                 result.Message += createVerificationResult.Message;
@@ -761,7 +760,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 1
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -786,8 +785,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, filterContent);
-                var createVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, filterContent);
+                var createVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = createVerificationResult.IsSuccess;
                 result.Message += createVerificationResult.Message;
@@ -821,7 +820,7 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                 Added = 1
             };
 
-            var result = await this.ExecuteCreate(token, expectedResult, null, bodyContent);
+            var result = await ExecuteCreate(token, expectedResult, null, bodyContent);
 
             if (result.IsSuccess)
             {
@@ -846,8 +845,8 @@ namespace Visiology.DataCollect.Integration.Tests.Dimensions.Post.v1
                     }
                 };
 
-                var elementsContent = await this.TryGetEntities(Method.POST, this.GetSearchUrl(userDimensionId), token, null, this.Headers, filterContent);
-                var createVerificationResult = this.Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
+                var elementsContent = await TryGetEntities(Method.POST, GetSearchUrl(userDimensionId), token, null, Headers, filterContent);
+                var createVerificationResult = Verifier.Verify(elementsContent.Content?.Entities, expectedElementsInfo);
 
                 result.IsSuccess = createVerificationResult.IsSuccess;
                 result.Message += createVerificationResult.Message;

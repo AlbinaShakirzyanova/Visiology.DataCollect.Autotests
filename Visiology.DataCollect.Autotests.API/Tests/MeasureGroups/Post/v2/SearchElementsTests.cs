@@ -1,10 +1,10 @@
-﻿using Visiology.DataCollect.Autotests.Infrastructure.Entities;
+﻿using Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get;
+using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
-using Visiology.DataCollect.Integration.Tests.MeasureGroups.Get;
 using Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements;
 
-namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Post.v2
+namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
 {
     /// <summary>
     /// Класс тестирования метода поиска элементов группы показателей
@@ -23,7 +23,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Post.v2
         public SearchElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService)
         {
-            this.Url = this.GetUrl(measureGroupId);
+            Url = GetUrl(measureGroupId);
         }
 
         // TODO Get-методы с телом не отрабатывают . Доделать на search
@@ -53,12 +53,12 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Post.v2
 
         protected override string GetSearchUrl(string entityId)
         {
-            return string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlMeasureGroupElementsSearchPath")}", entityId);
+            return string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlMeasureGroupElementsSearchPath")}", entityId);
         }
 
         protected override string GetUrl(string entityId)
         {
-            return string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlMeasureGroupElementsSearchPath")}", entityId);
+            return string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlMeasureGroupElementsSearchPath")}", entityId);
         }
     }
 }

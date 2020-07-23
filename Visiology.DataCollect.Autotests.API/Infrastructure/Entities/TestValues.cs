@@ -1,4 +1,4 @@
-﻿namespace Visiology.DataCollect.Integration.Tests.Infrastructure.Entities
+﻿namespace Visiology.DataCollect.Autotests.API.Infrastructure.Entities
 {
     /// <summary>
     /// Тестовые значения для кейсов
@@ -28,6 +28,6 @@
         public const double FloatValueConvertibleToInt = 3.00;
         public const string DateValueToStringCorrectFormat = "2018-05-16"; // yyyy-MM-dd
         public const string DateValueToStringIncorrectFormat = "2018-16-05"; // yyyy-dd-MM
-        public const string TextValue = "Пока просто текст"; 
+        public const string TextValue = "Пока просто текст";
     };
 }

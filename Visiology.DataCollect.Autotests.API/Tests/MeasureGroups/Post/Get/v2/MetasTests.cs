@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Threading.Tasks;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
@@ -9,7 +8,7 @@ using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Models.MeasureGroups;
 using Xunit;
 
-namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
+namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.Get.v2
 {
     /// <summary>
     /// Класс тестирования метода получения метаописаний групп показателей
@@ -35,8 +34,8 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         public MetasTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
             : base(iisFixture, tokenFixture, restService)
         {
-            this.Url =  $"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlGetMeasureGroupsPath")}";
-        }       
+            Url = $"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlGetMeasureGroupsPath")}";
+        }
 
         /// <summary>
         /// Тест получения всех метаописаний групп показателей без параметров
@@ -45,7 +44,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         [Fact]
         public async Task GetAll()
         {
-            var result = await this.ExecuteGet(TokenRoleType.UserWithRole, measureGroupsCount);
+            var result = await ExecuteGet(TokenRoleType.UserWithRole, measureGroupsCount);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -66,9 +65,9 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
             };
 
             var measureGroupCount = getAll ? measureGroupsCount :
-                (measureGroupsCount < int.Parse(this.config.GetValue("DefaultEntitiesCount")) ?
-                 measureGroupsCount : int.Parse(this.config.GetValue("DefaultEntitiesCount")));
-            var result = await this.ExecuteGet(TokenRoleType.UserAdmin, measureGroupCount, parameters);
+                measureGroupsCount < int.Parse(config.GetValue("DefaultEntitiesCount")) ?
+                 measureGroupsCount : int.Parse(config.GetValue("DefaultEntitiesCount"));
+            var result = await ExecuteGet(TokenRoleType.UserAdmin, measureGroupCount, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -87,7 +86,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
                     { Parameters.Limit, limit }
             };
 
-            var result = await this.ExecuteGet(TokenRoleType.UserAdmin, limit, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserAdmin, limit, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -107,7 +106,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
                     { Parameters.Skip, skip }
             };
 
-            var result = await this.ExecuteGet(TokenRoleType.UserAdmin, measureGroupsCount - skip, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserAdmin, measureGroupsCount - skip, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -128,7 +127,7 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
                     { Parameters.Limit, limit }
             };
 
-            var result = await this.ExecuteGet(TokenRoleType.UserAdmin, limit, parameters);
+            var result = await ExecuteGet(TokenRoleType.UserAdmin, limit, parameters);
 
             Assert.True(result.IsSuccess, result.Message);
         }
@@ -143,8 +142,8 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         [InlineData(TestValues.ZeroId)]
         public async Task Get_WithInvalidMgId(int? measureGroupId)
         {
-            this.Url = string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlGetMeasureGroupPath")}", measureGroupId);
-            var result = await this.ExecuteGet(TokenRoleType.UserAdmin, 0);
+            Url = string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlGetMeasureGroupPath")}", measureGroupId);
+            var result = await ExecuteGet(TokenRoleType.UserAdmin, 0);
 
             Assert.True(!result.IsSuccess, result.Message);
         }
@@ -156,9 +155,9 @@ namespace Visiology.DataCollect.Integration.Tests.MeasureGroups.Get.v2
         [Fact]
         public async Task Get_WithMgId()
         {
-            this.Url = string.Format($"{this.config.GetValue("ApiUrl")}{this.config.GetValue("ApiUrlGetMeasureGroupPath")}", measureGroupId);
+            Url = string.Format($"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlGetMeasureGroupPath")}", measureGroupId);
 
-            var response = await this._restService.SendRequestAsync(this.Method, this.Url, TokenRoleType.UserAdmin, this._tokenFixture.Tokens, null, this.Headers);
+            var response = await _restService.SendRequestAsync(Method, Url, TokenRoleType.UserAdmin, _tokenFixture.Tokens, null, Headers);
             var isSuccess = response.IsSuccessful;
             var message = $"{response.StatusCode} {response.StatusDescription}";
 
