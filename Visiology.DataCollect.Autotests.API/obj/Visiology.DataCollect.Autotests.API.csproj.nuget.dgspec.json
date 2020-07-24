@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[106.11.4, )"
             },
+            "System.Net.Requests": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
             "xunit": {
               "target": "Package",
               "version": "[2.4.1, )"

@@ -5,7 +5,6 @@ using Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
-using Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements;
 using Xunit;
 
 

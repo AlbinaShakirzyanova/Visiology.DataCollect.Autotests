@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 
-namespace Visiology.DataCollect.Integration.Tests.Infrastructure.Entities.RequestBody.Filters.MeasureGroup
+namespace Visiology.DataCollect.Autotests.API.Infrastructure.Entities.RequestBody.Filters.MeasureGroup
 {
     /// <summary>
     /// Класс, описывающий простой фильтр в теле запроса

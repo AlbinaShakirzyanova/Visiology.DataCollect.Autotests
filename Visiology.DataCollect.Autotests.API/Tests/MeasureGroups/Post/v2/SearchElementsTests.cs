@@ -1,9 +1,9 @@
-﻿using Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements;
+﻿using RestSharp;
+using Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements;
 using Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
-using Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements;
 
 namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
 {
@@ -14,6 +14,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
     class SearchElementsTests : BaseTests<ElementsListDto, ElementDto>
     {
         public override string Url { get; set; }
+
+        public override Method Method { get; set; } = Method.POST;
 
         /// <summary>
         /// Группа показателей для тестирования получения элементов 

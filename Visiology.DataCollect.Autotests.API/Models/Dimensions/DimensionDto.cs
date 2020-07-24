@@ -2,7 +2,7 @@
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Interfaces;
 using Visiology.DataCollect.Integration.Tests.Models.Dimensions.Attributes;
 
-namespace Visiology.DataCollect.Integration.Tests.Models.Dimensions
+namespace Visiology.DataCollect.Autotests.API.Models.Dimensions
 {
     /// <summary>
     /// Описание измерения

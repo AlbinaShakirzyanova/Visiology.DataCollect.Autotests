@@ -1,4 +1,4 @@
-﻿namespace Visiology.DataCollect.Integration.Tests.Infrastructure.Entities.RequestBody.Filters.MeasureGroup
+﻿namespace Visiology.DataCollect.Autotests.API.Infrastructure.Entities.RequestBody.Filters.MeasureGroup
 {
     /// <summary>
     /// Тип фильтрации

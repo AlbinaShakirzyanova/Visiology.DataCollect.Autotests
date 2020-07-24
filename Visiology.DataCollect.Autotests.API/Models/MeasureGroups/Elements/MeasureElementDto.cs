@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements
 {
     /// <summary>
     /// Элемент показателя
     /// </summary>
-    public class MeasureElementDto
+    public class MeasureElementDto : IEquatable<MeasureElementDto>
     {
         /// <summary>
         /// Уникальное наименование показателя
@@ -20,6 +22,14 @@ namespace Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements
         public override bool Equals(object obj)
         {
             var element = obj as MeasureElementDto;
+            return element != null &&
+                   MeasureId == element.MeasureId &&
+                   ElementId == element.ElementId;
+        }
+
+        public bool Equals([AllowNull] MeasureElementDto other)
+        {
+            var element = other as MeasureElementDto;
             return element != null &&
                    MeasureId == element.MeasureId &&
                    ElementId == element.ElementId;

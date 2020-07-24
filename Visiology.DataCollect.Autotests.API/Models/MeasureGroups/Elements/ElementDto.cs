@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements;
 
 namespace Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements
@@ -6,7 +9,7 @@ namespace Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements
     /// <summary>
     /// Элемент группы показателей
     /// </summary>
-    public class ElementDto : ElementBaseDto
+    public class ElementDto : ElementBaseDto, IEquatable<ElementDto>
     {
         /// <summary>
         /// Координаты элемента по измерения
@@ -35,10 +38,29 @@ namespace Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements
         {
             var dto = obj as ElementDto;
             return dto != null &&
-                   EqualityComparer<List<DimensionElementDto>>.Default.Equals(DimensionElements, dto.DimensionElements) &&
-                   EqualityComparer<List<MeasureElementDto>>.Default.Equals(MeasureElements, dto.MeasureElements) &&
-                   EqualityComparer<CalendarDto>.Default.Equals(Calendar, dto.Calendar);
+                   DimensionElements.SequenceEqual(dto.DimensionElements) &&
+                   MeasureElements.SequenceEqual(dto.MeasureElements) &&
+                   Calendar.Equals(dto.Calendar) &&
+                   Attributes.SequenceEqual(dto.Attributes) &&
+                   Value == dto.Value &&
+                   Id == dto.Id &&
+                   Comment == dto.Comment &&
+                   SystemInfo == dto.SystemInfo;
         }
+
+        public bool Equals([AllowNull] ElementDto other)
+        {
+            var dto = other as ElementDto;
+            return dto != null &&
+                   DimensionElements.SequenceEqual(dto.DimensionElements) &&
+                   MeasureElements.SequenceEqual(dto.MeasureElements) &&
+                   Calendar.Equals(dto.Calendar) &&
+                   Attributes.SequenceEqual(dto.Attributes) &&
+                   Value == dto.Value &&
+                   Id == dto.Id &&
+                   Comment == dto.Comment &&
+                   SystemInfo == dto.SystemInfo;
+        }        
 
         public override int GetHashCode()
         {
@@ -46,6 +68,11 @@ namespace Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements
             hashCode = hashCode * -1521134295 + EqualityComparer<List<DimensionElementDto>>.Default.GetHashCode(DimensionElements);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<MeasureElementDto>>.Default.GetHashCode(MeasureElements);
             hashCode = hashCode * -1521134295 + EqualityComparer<CalendarDto>.Default.GetHashCode(Calendar);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<MeasureGroupElementAttributeDto>>.Default.GetHashCode(Attributes);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Id);
+            hashCode = hashCode * -1521134295 + Value.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SystemInfo);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Comment);
             return hashCode;
         }
     }

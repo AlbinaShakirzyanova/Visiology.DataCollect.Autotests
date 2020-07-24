@@ -1,53 +1,42 @@
-﻿namespace Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
+namespace Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements
 {
-    public class MeasureGroupElementAttributeDto
+    public class MeasureGroupElementAttributeDto : IEquatable<MeasureGroupElementAttributeDto>
     {
-        public string AttributeId { get; }
+        public string AttributeId { get; set; }
 
-        public object Value { get; }
+        public object Value { get; set; }
 
-        public MeasureGroupElementAttributeDto(string attributeId, object value)
+        public string? DisplayValue { get; set; }
+
+        public override bool Equals(object obj)
         {
-            Value = value;
-            AttributeId = attributeId;
+            var attribute = obj as MeasureGroupElementAttributeDto;
+            return attribute != null &&
+                   AttributeId == attribute.AttributeId &&
+                   Value == attribute.Value &&
+                   DisplayValue == attribute.DisplayValue;
         }
-    }
 
-    public class MeasureGroupElementDecimalAttributeDto : MeasureGroupElementAttributeDto
-    {
-        public MeasureGroupElementDecimalAttributeDto(string attributeId, object value) : base(attributeId, value)
+        public bool Equals([AllowNull] MeasureGroupElementAttributeDto other)
         {
+            var attribute = other as MeasureGroupElementAttributeDto;
+            return attribute != null &&
+                   AttributeId == attribute.AttributeId &&
+                   Value == attribute.Value &&
+                   DisplayValue == attribute.DisplayValue; ;
         }
-    }
 
-    public class MeasureGroupElementLongAttributeDto : MeasureGroupElementAttributeDto
-    {
-        public MeasureGroupElementLongAttributeDto(string attributeId, object value) : base(attributeId, value)
+        public override int GetHashCode()
         {
+            var hashCode = 1757159580;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AttributeId);
+            hashCode = hashCode * -1521134295 + Value.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DisplayValue);
+            return hashCode;
         }
-    }
-
-    public class MeasureGroupElementStringAttributeDto : MeasureGroupElementAttributeDto
-    {
-        public MeasureGroupElementStringAttributeDto(string attributeId, object value) : base(attributeId, value)
-        {
-        }
-    }
-
-    public class MeasureGroupElementDateAttributeDto : MeasureGroupElementAttributeDto
-    {
-        public MeasureGroupElementDateAttributeDto(string attributeId, object value) : base(attributeId, value)
-        {
-        }
-    }
-
-    public class MeasureGroupElementBooleanAttributeDto : MeasureGroupElementAttributeDto
-    {
-        public string DisplayValue { get; }
-
-        public MeasureGroupElementBooleanAttributeDto(string attributeId, object value, string displayValue) : base(attributeId, value)
-        {
-            DisplayValue = displayValue;
-        }
-    }
+    }   
 }

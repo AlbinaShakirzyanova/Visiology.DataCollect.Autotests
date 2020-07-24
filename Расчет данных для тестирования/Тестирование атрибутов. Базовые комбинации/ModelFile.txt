@@ -1,0 +1,6 @@
+Value: empty, filled
+Comment: empty, filled
+Attribute: empty, filled
+SystemInfo: empty, filled
+
+IF [Value] = "empty" THEN [SystemInfo] = "empty"; 

@@ -1,0 +1,18 @@
+ENTITIES_L: dimension, measure, calendar
+LEVELS_L: element, subdirectory, directory
+CROSS: NotUsed, yes
+CROSSENTITY: dimension, measure, calendar, NotUsed
+CROSSLEVEL: element, subdirectory, directory, NotUsed
+OPERATIONS: <, >, ==, !=
+ENTITIES_R_1: dimension, measure, calendar, const, 0 
+LEVELS_R_1: element, subdirectory, directory, NotUsed
+ARITHMETIC: +, -, *, /, NotUsed
+ENTITIES_R_2: dimension, measure, calendar, const, 0, NotUsed 
+LEVELS_R_2: element, subdirectory, directory, NotUsed
+
+IF [ENTITIES_R_1] = "const" OR [ENTITIES_R_1] = "0"   THEN [LEVELS_R_1] = "NotUsed";
+IF [ENTITIES_R_2] = "const" OR [ENTITIES_R_2] = "0"   THEN [LEVELS_R_2] = "NotUsed";
+IF [ENTITIES_R_1] <> "const" AND [ENTITIES_R_1] <> "0"    THEN [LEVELS_R_1] <> "NotUsed";
+IF [ENTITIES_R_2] <> "const" AND [ENTITIES_R_2] <> "0"    THEN [LEVELS_R_2] <> "NotUsed";
+IF [ARITHMETIC] = "NotUsed" THEN [LEVELS_R_2] = "NotUsed" AND [ENTITIES_R_2] = "NotUsed";
+IF [CROSS] = "NotUsed" THEN [CROSSENTITY] = "NotUsed" AND [CROSSLEVEL] = "NotUsed";

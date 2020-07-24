@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements
 {
     /// <summary>
     /// Элемент измерения
     /// </summary>
-    public class DimensionElementDto
+    public class DimensionElementDto : IEquatable<DimensionElementDto>
     {
         /// <summary>
         /// Уникалньое наименование измерения
@@ -20,6 +22,14 @@ namespace Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements
         public override bool Equals(object obj)
         {
             var dto = obj as DimensionElementDto;
+            return dto != null &&
+                   DimensionId == dto.DimensionId &&
+                   ElementId == dto.ElementId;
+        }
+
+        public bool Equals([AllowNull] DimensionElementDto other)
+        {
+            var dto = other as DimensionElementDto;
             return dto != null &&
                    DimensionId == dto.DimensionId &&
                    ElementId == dto.ElementId;

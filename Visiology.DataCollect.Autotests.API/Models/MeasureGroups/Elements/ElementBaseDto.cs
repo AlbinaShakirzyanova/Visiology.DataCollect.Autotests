@@ -15,6 +15,16 @@ namespace Visiology.DataCollect.Integration.Tests.Models.MeasureGroups.Elements
         /// <summary>
         /// Значение элемента
         /// </summary>
-        public object Value { get; set; }
+        public double? Value { get; set; }
+
+        /// <summary>
+        /// Комментарий к ячейке
+        /// </summary>
+        public string Comment { get; set; }
+
+        /// <summary>
+        /// Системная информация о ячейке
+        /// </summary>
+        public string SystemInfo { get; set; }
     }
 }
