@@ -109,7 +109,6 @@ E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\bin\
 E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Security.Cryptography.Pkcs.dll
 E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
-E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\obj\Debug\netcoreapp3.1\Visiology.DataCollect.Autotests.API.csprojAssemblyReference.cache
 E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\obj\Debug\netcoreapp3.1\Visiology.DataCollect.Autotests.API.AssemblyInfoInputs.cache
 E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\obj\Debug\netcoreapp3.1\Visiology.DataCollect.Autotests.API.AssemblyInfo.cs
 E:\Work\Visiology.DataCollect.Autotests\Visiology.DataCollect.Autotests.API\obj\Debug\netcoreapp3.1\Visiology.DataCollect.Autotests.API.csproj.CoreCompileInputs.cache

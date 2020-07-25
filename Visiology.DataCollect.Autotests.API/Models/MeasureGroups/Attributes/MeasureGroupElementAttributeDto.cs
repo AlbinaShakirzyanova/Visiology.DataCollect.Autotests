@@ -26,7 +26,7 @@ namespace Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements
             var attribute = other as MeasureGroupElementAttributeDto;
             return attribute != null &&
                    AttributeId == attribute.AttributeId &&
-                   Value == attribute.Value &&
+                   Value?.ToString() == attribute.Value?.ToString() &&
                    DisplayValue == attribute.DisplayValue; ;
         }
 
@@ -34,7 +34,7 @@ namespace Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements
         {
             var hashCode = 1757159580;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AttributeId);
-            hashCode = hashCode * -1521134295 + Value.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Value?.ToString());
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DisplayValue);
             return hashCode;
         }
