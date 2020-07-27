@@ -3,7 +3,6 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Attributes;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;

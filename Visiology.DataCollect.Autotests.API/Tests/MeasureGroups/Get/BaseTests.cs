@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Interfaces;

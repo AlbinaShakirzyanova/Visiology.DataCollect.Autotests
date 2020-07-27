@@ -13,6 +13,11 @@
         /// <summary>
         /// По идентификатору
         /// </summary>
-        id
+        id,
+
+        /// <summary>
+        /// По идентификатору инстанса формы
+        /// </summary>
+        formInstance
     }
 }

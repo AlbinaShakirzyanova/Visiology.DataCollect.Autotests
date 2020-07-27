@@ -1,4 +1,4 @@
-﻿namespace Visiology.DataCollect.Integration.Tests.Infrastructure.Entities.RequestBody.Filters.MeasureGroup
+﻿namespace Visiology.DataCollect.Autotests.API.Infrastructure.Entities.RequestBody.Filters.MeasureGroup
 {
     /// <summary>
     /// Тип фильтрации
@@ -23,6 +23,16 @@
         /// <summary>
         /// По наименованию группы показателей
         /// </summary>
-        MeasureName
+        MeasureName,
+
+        /// <summary>
+        /// По уникальному идентификатору атрибута группы показателей
+        /// </summary>
+        AttributeId,
+
+        /// <summary>
+        /// По наименованию атрибута группы показателей
+        /// </summary>
+        AttributeName
     }
 }
