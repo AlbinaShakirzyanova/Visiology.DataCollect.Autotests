@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.API.Infrastructure.Entities.Configuration;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
@@ -14,12 +15,11 @@ using Xunit;
 
 namespace Visiology.DataCollect.Autotests.API.Tests
 {
-    [Collection("Iis collection")]
-    public abstract class BaseIntegrationTests<TList, TEntity> : IClassFixture<IisFixture>, IClassFixture<TokenFixture>, IClassFixture<RestService>
+    public abstract class BaseIntegrationTests<TList, TEntity> : IClassFixture<TokenFixture>, IClassFixture<RestService>
         where TList : IResponseContentList<TEntity>
         where TEntity : IResponseContent
     {
-        private IisFixture _iisFixture;
+        //private IisFixture _iisFixture;
         protected TokenFixture _tokenFixture;
         protected RestService _restService;
         protected ConfigurationManager config;
@@ -58,9 +58,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests
         /// </summary>
         public virtual Dictionary<string, string> Headers { get; set; }
 
-        public BaseIntegrationTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService, IVerifier<TEntity> verifier = null)
+        public BaseIntegrationTests(TokenFixture tokenFixture, RestService restService, IVerifier<TEntity> verifier = null)
         {
-            _iisFixture = iisFixture;
             _tokenFixture = tokenFixture;
             _restService = restService;
             config = new ConfigurationManager();

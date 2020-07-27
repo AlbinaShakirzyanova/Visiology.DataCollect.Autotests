@@ -29,8 +29,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// </summary>
         private const string folderId = "218";
 
-        public FolderChildrenTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService)
+        public FolderChildrenTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService)
         {
             Url = GetUrl(dimensionId);
         }

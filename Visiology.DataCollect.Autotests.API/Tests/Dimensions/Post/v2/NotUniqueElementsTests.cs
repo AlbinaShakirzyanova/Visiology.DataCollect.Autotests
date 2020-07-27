@@ -2,6 +2,7 @@
 using RestSharp;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
@@ -37,8 +38,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v2
         /// </summary>
         private TokenRoleType tokenRoleType = TokenRoleType.UserForNotUniqueElements;
 
-        public NotUniqueElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService, new DimensionElementsVerifier())
+        public NotUniqueElementsTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService, new DimensionElementsVerifier())
         {
             Url = GetUrl(userDimensionId);
         }

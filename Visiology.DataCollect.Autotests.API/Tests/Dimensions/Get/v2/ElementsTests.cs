@@ -23,8 +23,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// </summary>
         private const string dimensionId = "dim_poluchenie_eleentov";
 
-        public ElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService)
+        public ElementsTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService)
         {
             Url = GetUrl(dimensionId);
         }

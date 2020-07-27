@@ -3,6 +3,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.API.Infrastructure.Entities.RequestBody.Filters.MeasureGroup;
 using Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
@@ -29,8 +30,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
         /// </summary>
         public override Method Method { get; set; } = Method.GET;
 
-        public ElementsWithAttributesTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService)
+        public ElementsWithAttributesTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService)
         {
             Url = $"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlMeasureGroupElementsPath")}";
         }
@@ -39,8 +40,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
         /// Кейс Заполнено только значение ячейки при наличии у ГП строкогого атрибута
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
-        [Fact, Trait("Category", "MeasureGroups2.0")]
-        public async Task Get_WithFilledValue_FromMGWithStringAttribute()
+        //[Fact, Trait("Category", "MeasureGroups2.0")]
+       /* public async Task Get_WithFilledValue_FromMGWithStringAttribute()
         {
             var measureGroupId = "measureGroup_Strokovii_atribut";
             var url = this.GetUrl(measureGroupId);
@@ -98,7 +99,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
             }
 
             Assert.True(isSuccess, message);
-        }   
+        }  */ 
 
         protected override string GetUrl(string measureGroupId)
         {

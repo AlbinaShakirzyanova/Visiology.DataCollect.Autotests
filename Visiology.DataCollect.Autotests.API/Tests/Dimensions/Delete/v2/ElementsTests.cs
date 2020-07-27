@@ -1,4 +1,5 @@
-﻿using Visiology.DataCollect.Autotests.Infrastructure.Entities;
+﻿using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
+using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
 
@@ -22,8 +23,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Delete.v2
         /// </summary>
         protected override string dimensionForDeleteAllId { get; set; } = "dim_Testovoe_izmerenie_delet02";
 
-        public ElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService)
+        public ElementsTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService)
         {
         }
     }

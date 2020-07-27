@@ -3,6 +3,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.API.Infrastructure.Entities.RequestBody.Filters.MeasureGroup;
 using Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Attributes;
 using Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements;
@@ -31,8 +32,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
         /// </summary>
         public override Method Method { get; set; } = Method.POST;
 
-        public ElementsWithAttributesTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService)
+        public ElementsWithAttributesTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService)
         {
             Url = $"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlMeasureGroupElementsPath")}";
         }
@@ -44,8 +45,10 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
         [Fact, Trait("Category", "MeasureGroups2.0")]
         public async Task Get_WithFilledValue_ForMGWithStringAttribute()
         {
+            // Данные группы показателей из дампа
+            var measureGroupId = "measureGroup_string_search";
+            var measureGroupName = "string атрибут. Тестирование получения элементов.";
 
-            var measureGroupId = "measureGroup_Strokovii_atribut";
             var url = this.GetUrl(measureGroupId);
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(new SimpleFilter
@@ -68,7 +71,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 {
                     MeasureGroup = new MeasureGroupDto
                     {
-                        Name = "Строковый атрибут. Тестирование получения элементов.",
+                        Name = measureGroupName,
                         Id = measureGroupId,
                         Dimensions = new List<ApiMeasureGroupComponent>
                         {
@@ -88,8 +91,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                         {
                             new MeasureGroupStringAttributeDto
                             {
-                                Name = "Строковый",
-                                Id = "attr_Strokovii",
+                                Name = "string",
+                                Id = "attr_string",
                                 TypeCode = (int)MeasureGroupAttributeType.String,
                                 TypeName =  "String"
                             }
@@ -115,12 +118,11 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                             },
                             Attributes = new List<MeasureGroupElementAttributeDto>
                             {
-                                new MeasureGroupElementAttributeDto { AttributeId = "attr_Strokovii", Value = null }
+                                new MeasureGroupElementAttributeDto { AttributeId = "attr_string", Value = null }
                             },
                             SystemInfo = null,
                             Comment = null,
                             Value = 2010.0000000000,
-                            Id = "1"
                         }
                     }
                 };
@@ -128,7 +130,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 if (!expectedContent.Equals(content))
                 {
                     isSuccess = false;
-                    message += $"Полученное метоописание группы показателей {measureGroupId} не соответствует ожидаемому";
+                    message += $"Полученное метоописание группы показателей {measureGroupId} {measureGroupName} не соответствует ожидаемому";
                 }
             }
 
@@ -142,8 +144,10 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
         [Fact, Trait("Category", "MeasureGroups2.0")]
         public async Task Get_WithFilledCell_ForMGWithStringAttribute()
         {
+            // Данные группы показателей из дампа
+            var measureGroupId = "measureGroup_string_search";
+            var measureGroupName = "string атрибут. Тестирование получения элементов.";
 
-            var measureGroupId = "measureGroup_Strokovii_atribut";
             var url = this.GetUrl(measureGroupId);
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(new SimpleFilter
@@ -166,7 +170,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 {
                     MeasureGroup = new MeasureGroupDto
                     {
-                        Name = "Строковый атрибут. Тестирование получения элементов.",
+                        Name = measureGroupName,
                         Id = measureGroupId,
                         Dimensions = new List<ApiMeasureGroupComponent>
                         {
@@ -186,8 +190,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                         {
                             new MeasureGroupStringAttributeDto
                             {
-                                Name = "Строковый",
-                                Id = "attr_Strokovii",
+                                Name = "string",
+                                Id = "attr_string",
                                 TypeCode = (int)MeasureGroupAttributeType.String,
                                 TypeName =  "String"
                             }
@@ -213,12 +217,11 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                             },
                             Attributes = new List<MeasureGroupElementAttributeDto>
                             {
-                                new MeasureGroupElementAttributeDto { AttributeId = "attr_Strokovii", Value = "filled" }
+                                new MeasureGroupElementAttributeDto { AttributeId = "attr_string", Value = "filled" }
                             },
-                            SystemInfo = "API - filled",
+                            SystemInfo = "API",
                             Comment = "filled",
-                            Value = 2010.0100000000,
-                            Id = "2"
+                            Value = 2010.0100000000
                         }
                     }
                 };
@@ -226,7 +229,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 if (!expectedContent.Equals(content))
                 {
                     isSuccess = false;
-                    message += $"Полученное метоописание группы показателей {measureGroupId} не соответствует ожидаемому";
+                    message += $"Полученное метоописание группы показателей {measureGroupId} {measureGroupName} не соответствует ожидаемому";
                 }
             }
 
@@ -240,8 +243,10 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
         [Fact, Trait("Category", "MeasureGroups2.0")]
         public async Task Get_WithFilledCommentAndAttribute_ForMGWithStringAttribute()
         {
+            // Данные группы показателей из дампа
+            var measureGroupId = "measureGroup_string_search";
+            var measureGroupName = "string атрибут. Тестирование получения элементов.";
 
-            var measureGroupId = "measureGroup_Strokovii_atribut";
             var url = this.GetUrl(measureGroupId);
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(new SimpleFilter
@@ -264,7 +269,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 {
                     MeasureGroup = new MeasureGroupDto
                     {
-                        Name = "Строковый атрибут. Тестирование получения элементов.",
+                        Name = measureGroupName,
                         Id = measureGroupId,
                         Dimensions = new List<ApiMeasureGroupComponent>
                         {
@@ -284,8 +289,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                         {
                             new MeasureGroupStringAttributeDto
                             {
-                                Name = "Строковый",
-                                Id = "attr_Strokovii",
+                                Name = "string",
+                                Id = "attr_string",
                                 TypeCode = (int)MeasureGroupAttributeType.String,
                                 TypeName =  "String"
                             }
@@ -311,12 +316,11 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                             },
                             Attributes = new List<MeasureGroupElementAttributeDto>
                             {
-                                new MeasureGroupElementAttributeDto { AttributeId = "attr_Strokovii", Value = "filled" }
+                                new MeasureGroupElementAttributeDto { AttributeId = "attr_string", Value = "filled" }
                             },
                             SystemInfo = null,
                             Comment = "filled",
-                            Value = null,
-                            Id = "3"
+                            Value = null
                         }
                     }
                 };
@@ -324,7 +328,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 if (!expectedContent.Equals(content))
                 {
                     isSuccess = false;
-                    message += $"Полученное метоописание группы показателей {measureGroupId} не соответствует ожидаемому";
+                    message += $"Полученное метоописание группы показателей {measureGroupId} {measureGroupName} не соответствует ожидаемому";
                 }
             }
 
@@ -338,8 +342,10 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
         [Fact, Trait("Category", "MeasureGroups2.0")]
         public async Task Get_EmptyOnlyAttribute_ForMGWithStringAttribute()
         {
+            // Данные группы показателей из дампа
+            var measureGroupId = "measureGroup_string_search";
+            var measureGroupName = "string атрибут. Тестирование получения элементов.";
 
-            var measureGroupId = "measureGroup_Strokovii_atribut";
             var url = this.GetUrl(measureGroupId);
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(new SimpleFilter
@@ -362,7 +368,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 {
                     MeasureGroup = new MeasureGroupDto
                     {
-                        Name = "Строковый атрибут. Тестирование получения элементов.",
+                        Name = measureGroupName,
                         Id = measureGroupId,
                         Dimensions = new List<ApiMeasureGroupComponent>
                         {
@@ -382,8 +388,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                         {
                             new MeasureGroupStringAttributeDto
                             {
-                                Name = "Строковый",
-                                Id = "attr_Strokovii",
+                                Name = "string",
+                                Id = "attr_string",
                                 TypeCode = (int)MeasureGroupAttributeType.String,
                                 TypeName =  "String"
                             }
@@ -409,12 +415,11 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                             },
                             Attributes = new List<MeasureGroupElementAttributeDto>
                             {
-                                new MeasureGroupElementAttributeDto { AttributeId = "attr_Strokovii", Value = null }
+                                new MeasureGroupElementAttributeDto { AttributeId = "attr_string", Value = null }
                             },
-                            SystemInfo = "API - filled",
+                            SystemInfo = "API",
                             Comment = "filled",
-                            Value = 2010,
-                            Id = "4"
+                            Value = 2010
                         }
                     }
                 };
@@ -422,7 +427,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 if (!expectedContent.Equals(content))
                 {
                     isSuccess = false;
-                    message += $"Полученное метоописание группы показателей {measureGroupId} не соответствует ожидаемому";
+                    message += $"Полученное метоописание группы показателей {measureGroupId} {measureGroupName} не соответствует ожидаемому";
                 }
             }
 
@@ -436,7 +441,10 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
         [Fact, Trait("Category", "MeasureGroups2.0")]
         public async Task Get_WithFilledValue_ForMGWithLongAttribute()
         {
-            var measureGroupId = "measureGroup_Long_atribut_Test";
+            // Данные группы показателей из дампа
+            var measureGroupId = "measureGroup_long_search";
+            var measureGroupName = "long атрибут. Тестирование получения элементов.";
+
             var url = this.GetUrl(measureGroupId);
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(new SimpleFilter
@@ -459,7 +467,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 {
                     MeasureGroup = new MeasureGroupDto
                     {
-                        Name = "Long атрибут. Тестирование получения элементов.",
+                        Name = measureGroupName,
                         Id = measureGroupId,
                         Dimensions = new List<ApiMeasureGroupComponent>
                         {
@@ -519,7 +527,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 if (!expectedContent.Equals(content))
                 {
                     isSuccess = false;
-                    message += $"Полученное метоописание группы показателей {measureGroupId} не соответствует ожидаемому";
+                    message += $"Полученное метоописание группы показателей {measureGroupId} {measureGroupName} не соответствует ожидаемому";
                 }
             }
 
@@ -533,7 +541,10 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
         [Fact, Trait("Category", "MeasureGroups2.0")]
         public async Task Get_WithFilledCell_ForMGWithLongAttribute()
         {
-            var measureGroupId = "measureGroup_Long_atribut_Test";
+            // Данные группы показателей из дампа
+            var measureGroupId = "measureGroup_long_search";
+            var measureGroupName = "long атрибут. Тестирование получения элементов.";
+
             var url = this.GetUrl(measureGroupId);
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(new SimpleFilter
@@ -556,7 +567,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 {
                     MeasureGroup = new MeasureGroupDto
                     {
-                        Name = "Long атрибут. Тестирование получения элементов.",
+                        Name = measureGroupName,
                         Id = measureGroupId,
                         Dimensions = new List<ApiMeasureGroupComponent>
                         {
@@ -605,10 +616,9 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                             {
                                 new MeasureGroupElementAttributeDto { AttributeId = "attr_long", Value = 2010 }
                             },
-                            SystemInfo = "API - filled",
+                            SystemInfo = "API",
                             Comment = "filled",
-                            Value = 2010.0000000000,
-                            Id = "2"
+                            Value = 2010.0000000000
                         }
                     }
                 };
@@ -630,7 +640,10 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
         [Fact, Trait("Category", "MeasureGroups2.0")]
         public async Task Get_WithFilledCommentAndAttribute_ForMGWithLongAttribute()
         {
-            var measureGroupId = "measureGroup_Long_atribut_Test";
+            // Данные группы показателей из дампа
+            var measureGroupId = "measureGroup_long_search";
+            var measureGroupName = "long атрибут. Тестирование получения элементов.";
+
             var url = this.GetUrl(measureGroupId);
 
             var filterContent = await Task.Run(() => JsonConvert.SerializeObject(new SimpleFilter
@@ -653,7 +666,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 {
                     MeasureGroup = new MeasureGroupDto
                     {
-                        Name = "Long атрибут. Тестирование получения элементов.",
+                        Name = measureGroupName,
                         Id = measureGroupId,
                         Dimensions = new List<ApiMeasureGroupComponent>
                         {
@@ -704,8 +717,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                             },
                             SystemInfo = null,
                             Comment = "filled",
-                            Value = null, 
-                            Id = "3"
+                            Value = null
                         }
                     }
                 };

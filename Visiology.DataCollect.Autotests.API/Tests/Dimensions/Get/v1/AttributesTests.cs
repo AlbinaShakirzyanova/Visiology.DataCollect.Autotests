@@ -21,8 +21,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v1
         /// </summary>
         private const string dimensionId = "10";
 
-        public AttributesTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService)
+        public AttributesTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService)
         {
             Url = GetUrl(dimensionId);
         }

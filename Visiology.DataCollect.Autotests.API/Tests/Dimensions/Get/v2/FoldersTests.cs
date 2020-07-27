@@ -23,8 +23,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v2
         /// </summary>
         private const string dimensionId = "dim_poluchenie_papok";
 
-        public FoldersTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService)
+        public FoldersTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService)
         {
             Url = GetUrl(dimensionId);
         }

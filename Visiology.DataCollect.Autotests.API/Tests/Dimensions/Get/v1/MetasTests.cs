@@ -24,8 +24,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v1
         /// </summary>
         public override string Url { get; set; }
 
-        public MetasTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService)
+        public MetasTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService)
         {
             Url = $"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlGetDimensionsPath")}";
         }

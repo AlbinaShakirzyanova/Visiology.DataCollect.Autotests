@@ -3,6 +3,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Attributes;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
@@ -28,8 +29,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
         /// </summary>
         public override Method Method { get; set; } = Method.GET;
 
-        public MetasWithAttributesTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService)
+        public MetasWithAttributesTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService)
         {
             Url = $"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlGetMeasureGroupPath")}";
         }
@@ -41,7 +42,10 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
         [Fact, Trait("Category", "MeasureGroups2.0")]
         public async Task Get_WithStringAttribute()
         {
-            var measureGroupId = "measureGroup_Strokovii_meta";
+            // Данные группы показателей из дампа
+            var measureGroupId = "measureGroup_string_meta";
+            var measureGroupName = "string атрибут. Получение описания группы показателей";
+
             var url = this.GetUrl(measureGroupId);
 
             var response = await _restService.SendRequestAsync(this.Method, url, TokenRoleType.UserWithRole, _tokenFixture.Tokens, null, Headers);
@@ -56,8 +60,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
 
                     var expectedContent = new MeasureGroupDto
                     {
-                        Name = "Строковый атрибут. Получение описания группы показателей",
-                        Id = "measureGroup_Strokovii_meta",
+                        Name = measureGroupName,
+                        Id = measureGroupId,
                         Dimensions = new List<ApiMeasureGroupComponent>
                         {
                             new ApiMeasureGroupComponent { Name = "Дни недели", Id = "dim_Day_of_week" }
@@ -76,8 +80,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
                         { 
                             new MeasureGroupStringAttributeDto 
                             { 
-                                Name = "Строковый",
-                                Id = "attr_Strokovii",
+                                Name = "string",
+                                Id = "attr_string",
                                 TypeCode = (int)MeasureGroupAttributeType.String,
                                 TypeName =  "String"
                             }
@@ -87,7 +91,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
                     if (!expectedContent.Equals(content))
                     {
                         isSuccess = false;
-                        message += $"Полученное метоописание группы показателей {measureGroupId} не соответствует ожидаемому";
+                        message += $"Полученное метоописание группы показателей {measureGroupName} {measureGroupId} не соответствует ожидаемому";
                     }
                 }
                 catch (Exception e)
@@ -107,7 +111,10 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
         [Fact, Trait("Category", "MeasureGroups2.0")]
         public async Task Get_WithLongAttribute()
         {
-            var measureGroupId = "measureGroup_TSelochisle_meta";
+            // Данные группы показателей из дампа
+            var measureGroupId = "measureGroup_long_meta";
+            var measureGroupName = "long атрибут. Получение описания группы показателей";
+
             var url = this.GetUrl(measureGroupId);
 
             var response = await _restService.SendRequestAsync(this.Method, url, TokenRoleType.UserWithRole, _tokenFixture.Tokens, null, Headers);
@@ -122,8 +129,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
 
                     var expectedContent = new MeasureGroupDto
                     {
-                        Name = "Целочисленный атрибут. Получение описания группы показателей",
-                        Id = "measureGroup_TSelochisle_meta",
+                        Name = measureGroupName,
+                        Id = measureGroupId,
                         Dimensions = new List<ApiMeasureGroupComponent>
                         {
                             new ApiMeasureGroupComponent { Name = "Дни недели", Id = "dim_Day_of_week" }
@@ -142,8 +149,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
                         {
                             new MeasureGroupLongAttributeDto
                             {
-                                Name = "Целочисленный",
-                                Id = "attr_TSelochislennii",
+                                Name = "long",
+                                Id = "attr_long",
                                 TypeCode = (int)MeasureGroupAttributeType.Long,
                                 TypeName =  "Long"
                             }
@@ -153,7 +160,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
                     if (!expectedContent.Equals(content))
                     {
                         isSuccess = false;
-                        message += $"Полученное метоописание группы показателей {measureGroupId} не соответствует ожидаемому";
+                        message += $"Полученное метоописание группы показателей {measureGroupName} {measureGroupId} не соответствует ожидаемому";
                     }
                 }
                 catch (Exception e)
@@ -173,7 +180,10 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
         [Fact, Trait("Category", "MeasureGroups2.0")]
         public async Task Get_WithDecimalAttribute()
         {
-            var measureGroupId = "measureGroup_Drobnoe_meta";
+            // Данные группы показателей из дампа
+            var measureGroupId = "measureGroup_decimal_meta";
+            var measureGroupName = "decimal атрибут. Получение описания группы показателей";
+
             var url = this.GetUrl(measureGroupId);
 
             var response = await _restService.SendRequestAsync(this.Method, url, TokenRoleType.UserWithRole, _tokenFixture.Tokens, null, Headers);
@@ -188,8 +198,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
 
                     var expectedContent = new MeasureGroupDto
                     {
-                        Name = "Дробное атрибут. Получение описания группы показателей",
-                        Id = "measureGroup_Drobnoe_meta",
+                        Name = measureGroupName,
+                        Id = measureGroupId,
                         Dimensions = new List<ApiMeasureGroupComponent>
                         {
                             new ApiMeasureGroupComponent { Name = "Дни недели", Id = "dim_Day_of_week" }
@@ -208,8 +218,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
                         {
                             new MeasureGroupDecimalAttributeDto
                             {
-                                Name = "Дробное число",
-                                Id = "attr_Drobnoe_chislo",
+                                Name = "decimal",
+                                Id = "attr_decimal",
                                 TypeCode = (int)MeasureGroupAttributeType.Decimal,
                                 TypeName =  "Decimal",
                                 Precision = 2                              
@@ -240,7 +250,10 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
         [Fact, Trait("Category", "MeasureGroups2.0")]
         public async Task Get_WithBooleanAttribute()
         {
-            var measureGroupId = "measureGroup_Logicheskii_meta";
+            // Данные группы показателей из дампа
+            var measureGroupId = "measureGroup_boolean_meta";
+            var measureGroupName = "boolean атрибут. Получение описания группы показателей";
+
             var url = this.GetUrl(measureGroupId);
 
             var response = await _restService.SendRequestAsync(this.Method, url, TokenRoleType.UserWithRole, _tokenFixture.Tokens, null, Headers);
@@ -255,8 +268,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
 
                     var expectedContent = new MeasureGroupDto
                     {
-                        Name = "Логический атрибут. Получение описания группы показателей",
-                        Id = "measureGroup_Logicheskii_meta",
+                        Name = measureGroupName,
+                        Id = measureGroupId,
                         Dimensions = new List<ApiMeasureGroupComponent>
                         {
                             new ApiMeasureGroupComponent { Name = "Дни недели", Id = "dim_Day_of_week" }
@@ -275,8 +288,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
                         {
                             new MeasureGroupBooleanAttributeDto
                             {
-                                Name = "Логический",
-                                Id = "attr_Logicheskii",
+                                Name = "boolean",
+                                Id = "attr_boolean",
                                 TypeCode = (int)MeasureGroupAttributeType.Boolean,
                                 TypeName =  "Boolean",
                                 TrueValueText = "Yes",
@@ -309,7 +322,10 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
         [Fact, Trait("Category", "MeasureGroups2.0")]
         public async Task Get_WithDateAttribute()
         {
-            var measureGroupId = "measureGroup_Data_atribut_meta";
+            // Данные группы показателей из дампа
+            var measureGroupId = "measureGroup_date_meta";
+            var measureGroupName = "date атрибут. Получение описания группы показателей";
+
             var url = this.GetUrl(measureGroupId);
 
             var response = await _restService.SendRequestAsync(this.Method, url, TokenRoleType.UserWithRole, _tokenFixture.Tokens, null, Headers);
@@ -324,8 +340,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
 
                     var expectedContent = new MeasureGroupDto
                     {
-                        Name = "Дата атрибут. Получение описания группы показателей",
-                        Id = "measureGroup_Data_atribut_meta",
+                        Name = measureGroupName,
+                        Id = measureGroupId,
                         Dimensions = new List<ApiMeasureGroupComponent>
                         {
                             new ApiMeasureGroupComponent { Name = "Дни недели", Id = "dim_Day_of_week" }
@@ -344,8 +360,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
                         {
                             new MeasureGroupDateAttributeDto
                             {
-                                Name = "Дата",
-                                Id = "attr_Data",
+                                Name = "date",
+                                Id = "attr_date",
                                 TypeCode = (int)MeasureGroupAttributeType.Date,
                                 TypeName = "Date",
                                 MaxDate = "2020-01-01",

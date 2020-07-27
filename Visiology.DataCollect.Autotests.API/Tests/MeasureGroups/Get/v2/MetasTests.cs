@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
@@ -31,8 +32,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
         /// </summary>
         public override string Url { get; set; }
 
-        public MetasTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService)
+        public MetasTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService)
         {
             Url = $"{config.GetValue("ApiUrl")}{config.GetValue("ApiUrlGetMeasureGroupsPath")}";
         }

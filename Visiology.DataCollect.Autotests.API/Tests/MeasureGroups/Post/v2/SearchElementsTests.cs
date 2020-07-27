@@ -1,9 +1,11 @@
 ﻿using RestSharp;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements;
 using Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get;
 using Visiology.DataCollect.Autotests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
+using Xunit;
 
 namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
 {
@@ -23,8 +25,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
         /// </summary>
         private const string measureGroupId = "measureGroup_Gruppa_pokazatel_";
 
-        public SearchElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService)
+        public SearchElementsTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService)
         {
             Url = GetUrl(measureGroupId);
         }

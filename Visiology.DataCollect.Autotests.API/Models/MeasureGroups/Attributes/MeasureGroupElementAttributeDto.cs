@@ -10,7 +10,7 @@ namespace Visiology.DataCollect.Autotests.API.Models.MeasureGroups.Elements
 
         public object Value { get; set; }
 
-        public string? DisplayValue { get; set; }
+        public string DisplayValue { get; set; }
 
         public override bool Equals(object obj)
         {

@@ -35,8 +35,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post.v1
         /// </summary>
         public override string Url { get; set; }
 
-        public ElementsTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService, new DimensionElementsVerifier())
+        public ElementsTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService, new DimensionElementsVerifier())
         {
             Url = GetUrl(userDimensionId);
         }

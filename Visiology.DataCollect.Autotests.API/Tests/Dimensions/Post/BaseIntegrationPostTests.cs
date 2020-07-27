@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Visiology.DataCollect.Autotests.API.Infrastructure.Entities;
 using Visiology.DataCollect.Autotests.API.Infrastructure.Entities.Results;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Entities;
 using Visiology.DataCollect.Integration.Tests.Infrastructure.Impl;
@@ -16,8 +17,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Post
         where TList : IResponseContentList<TEntity>
         where TEntity : IResponseContent
     {
-        public BaseIntegrationPostTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService, IVerifier<TEntity> verifier = null)
-            : base(iisFixture, tokenFixture, restService, verifier)
+        public BaseIntegrationPostTests(TokenFixture tokenFixture, RestService restService, IVerifier<TEntity> verifier = null)
+            : base(tokenFixture, restService, verifier)
         {
         }
 

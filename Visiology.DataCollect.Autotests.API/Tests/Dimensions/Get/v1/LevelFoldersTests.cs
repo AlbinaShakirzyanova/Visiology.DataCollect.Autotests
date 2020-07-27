@@ -29,8 +29,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get.v1
         /// </summary>
         private const string levelId = "29";
 
-        public LevelFoldersTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService)
-            : base(iisFixture, tokenFixture, restService)
+        public LevelFoldersTests(TokenFixture tokenFixture, RestService restService)
+            : base(tokenFixture, restService)
         {
             Url = GetUrl(dimensionId);
         }

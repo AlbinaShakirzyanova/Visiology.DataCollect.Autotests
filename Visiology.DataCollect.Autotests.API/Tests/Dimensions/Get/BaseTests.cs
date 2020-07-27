@@ -16,8 +16,8 @@ namespace Visiology.DataCollect.Autotests.API.Tests.Dimensions.Get
         where TList : IResponseContentList<TEntity>
         where TEntity : IResponseContent
     {
-        public BaseTests(IisFixture iisFixture, TokenFixture tokenFixture, RestService restService, IVerifier<TEntity> verifier = null)
-            : base(iisFixture, tokenFixture, restService, verifier)
+        public BaseTests(TokenFixture tokenFixture, RestService restService, IVerifier<TEntity> verifier = null)
+            : base(tokenFixture, restService, verifier)
         {
         }
 
