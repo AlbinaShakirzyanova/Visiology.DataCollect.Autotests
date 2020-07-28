@@ -8,5 +8,3 @@ services:
       dockerfile: DockerFile_measureGroups
     environment:
       - TEAMCITY_PROJECT_NAME
-      - TESTAPIURL_FROM_TC
-      - TESTAPIURLAUTHENTICATEPATH_FROM_TC
