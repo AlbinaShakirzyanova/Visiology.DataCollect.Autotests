@@ -5,9 +5,8 @@ services:
     image: autotests_measureGroups
     build:
       context: .
-      args:
-        APP_ENV_TESTAPIURL: testsApiUrl,
-        APP_ENV_TESTAPIURLAUTHENTICATEPATH: testsApiUrlAuthenticatePath
       dockerfile: DockerFile_measureGroups
     environment:
       - TEAMCITY_PROJECT_NAME
+      - TESTAPIURL_FROM_TC
+      - TESTAPIURLAUTHENTICATEPATH_FROM_TC
