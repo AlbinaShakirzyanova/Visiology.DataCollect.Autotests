@@ -19,7 +19,6 @@ namespace Visiology.DataCollect.Autotests.API.Tests
         where TList : IResponseContentList<TEntity>
         where TEntity : IResponseContent
     {
-        //private IisFixture _iisFixture;
         protected TokenFixture _tokenFixture;
         protected RestService _restService;
         protected ConfigurationManager config;

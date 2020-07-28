@@ -98,14 +98,15 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                         filters = new[]
                         {
                              calendarFilter,
-                             new NamedFilter { value = 1, type = NamedFilterType.DimensionId, name=  "dim_Day_of_week", condition=  FilterCondition.equals },
-                             new NamedFilter { value = 1, type = NamedFilterType.MeasureId, name=  "dim_Measures", condition=  FilterCondition.equals }
+                             new NamedFilter { value = 1, type = NamedFilterType.DimensionId, name=  "dim_Day_of_week", condition =  FilterCondition.equals },
+                             new NamedFilter { value = 1, type = NamedFilterType.MeasureId, name=  "dim_Measures", condition =  FilterCondition.equals }
                         }
                     };
 
                     var filterContent = await Task.Run(() => JsonConvert.SerializeObject(filter));
 
                     var searchResponse = await _restService.SendRequestAsync(this.Method, GetSearchUrl(measureGroupId), TokenRoleType.UserAdmin, _tokenFixture.Tokens, null, Headers, filterContent);
+                    
                     isSuccess &= searchResponse.IsSuccessful;
                     message += $"{searchResponse.StatusCode} {searchResponse.StatusDescription}";
 
