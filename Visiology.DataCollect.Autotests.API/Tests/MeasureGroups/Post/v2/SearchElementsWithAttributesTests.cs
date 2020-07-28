@@ -2288,7 +2288,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Post.v2
                 }
             }
 
-            Assert.True(isSuccess, message);
+            Assert.True(isSuccess, message + url);
         }
 
         protected override string GetUrl(string measureGroupId)
