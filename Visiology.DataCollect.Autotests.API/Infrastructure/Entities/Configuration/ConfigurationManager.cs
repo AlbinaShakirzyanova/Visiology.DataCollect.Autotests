@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System;
 
 namespace Visiology.DataCollect.Autotests.API.Infrastructure.Entities.Configuration
 {
@@ -14,7 +15,14 @@ namespace Visiology.DataCollect.Autotests.API.Infrastructure.Entities.Configurat
 
         public string GetValue(string key)
         {
-            return _configuration[$"appSettings:{key}"];
+            var value = Environment.GetEnvironmentVariable(key);
+
+            if (string.IsNullOrEmpty(value))
+            {
+                return _configuration[$"appSettings:{key}"];
+            }
+
+            return value;            
         }
     }
 }

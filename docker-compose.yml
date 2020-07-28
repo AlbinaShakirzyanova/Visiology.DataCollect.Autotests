@@ -8,5 +8,5 @@ services:
       dockerfile: DockerFile
     environment:
       - TEAMCITY_PROJECT_NAME
-      - testsApiUrl=${testsApiUrl}
-      - testsApiUrlAuthenticatePath=${testsApiUrlAuthenticatePath}
+      - ApiUrl=${ApiUrl}
+      - ApiUrlAuthenticatePath=${ApiUrlAuthenticatePath}
