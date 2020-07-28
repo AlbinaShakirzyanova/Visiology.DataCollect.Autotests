@@ -1,10 +1,10 @@
 version: '3.1'
  
 services:
- api_dim:
-    image: autotests_dim
+ api_mg:
+    image: autotests_mg
     build:
       context: .
-      dockerfile: DockerFile_dim
+      dockerfile: DockerFile_mg
     environment:
       - TEAMCITY_PROJECT_NAME

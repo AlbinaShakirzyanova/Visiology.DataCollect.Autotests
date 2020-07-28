@@ -1,0 +1,5 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+COPY ./Visiology.DataCollect.Autotests.API/* /Visiology.DataCollect.Autotests.API/
+WORKDIR /Visiology.DataCollect.Autotests.API
+
+ENTRYPOINT ["dotnet", "test", "-c", "Release", "--verbosity=normal",  "--filter", "Category=MeasureGroups2.0"]

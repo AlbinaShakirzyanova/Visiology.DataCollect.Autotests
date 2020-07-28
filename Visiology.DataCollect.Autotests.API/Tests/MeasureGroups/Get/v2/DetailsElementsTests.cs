@@ -38,7 +38,7 @@ namespace Visiology.DataCollect.Autotests.API.Tests.MeasureGroups.Get.v2
         /// </summary>
         /// <returns>Ожидаемый результат - положительный</returns>
         [Fact, Trait("Category", "MeasureGroups2.0")]
-        public async Task Get_WithNamedAttributeIdFilter_ForDateAttribute()
+        public async Task Details__ForMGWithAttributes()
         {
             // Данные группы показателей из дампа
             var measureGroupId = "measureGroup_all_search";
