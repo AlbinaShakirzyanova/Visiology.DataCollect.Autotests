@@ -8,5 +8,6 @@ services:
       dockerfile: DockerFile
     environment:
       - TEAMCITY_PROJECT_NAME
-      - testsApiUrl
-      - testsApiUrlAuthenticatePath
+      - testsApiUrl=${testsApiUrl:-1}
+      - testsApiUrlAuthenticatePath=${testsApiUrlAuthenticatePath:-2}
+    entrypoint: ["echo", "$testsApiUrl","$testsApiUrlAuthenticatePath"]
