@@ -9,17 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Tests\Dimensions\**" />
     <Compile Remove="Tests\MeasureGroups\Get\**" />
-    <EmbeddedResource Remove="Tests\Dimensions\**" />
     <EmbeddedResource Remove="Tests\MeasureGroups\Get\**" />
-    <None Remove="Tests\Dimensions\**" />
     <None Remove="Tests\MeasureGroups\Get\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Include="Tests\MeasureGroups\Get\BaseIntegrationGetTests.cs" />
     <Compile Include="Tests\MeasureGroups\Get\BaseTests.cs" />
+    <Compile Include="Tests\MeasureGroups\Get\v1\MetasTests.cs" />
     <Compile Include="Tests\MeasureGroups\Get\v2\ElementsTests.cs" />
     <Compile Include="Tests\MeasureGroups\Get\v2\ElementsWithAttributesTests.cs" />
     <Compile Include="Tests\MeasureGroups\Get\v2\MetasWithAttributesTests.cs" />
