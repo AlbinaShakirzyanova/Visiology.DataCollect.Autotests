@@ -5,7 +5,7 @@ services:
     image: autotests__dimensions
     build:
       context: .
-      dockerfile: DockerFile__dimensions
+      dockerfile: DockerFile_dimensions
     environment:
       - TEAMCITY_PROJECT_NAME
       - ApiUrl=${ApiUrl}
